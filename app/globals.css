@@ -1,0 +1,253 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "swiper/css";
+@import "swiper/css/pagination";
+@import "swiper/css/navigation";
+@import "swiper/css/mousewheel";
+
+:root {
+  --red: #cc0000;
+  --red-bright: #ff1a1a;
+  --bg: #111111;
+  --card: #1a1a1a;
+  --text: #ffffff;
+  --muted: #9ca3af;
+   --skin-accent: #e30613;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-barlow), sans-serif;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--red);
+  border-radius: 3px;
+}
+
+/* Utilities */
+.max-w-3xl {
+    max-width: 80rem;
+}
+.py-20{
+    padding-top: 3rem;
+}
+.position-relative {
+  position: relative;
+}
+.align-start {
+  align-items: flex-start
+}
+.right-minus30{
+  right: -30px;
+}
+.text-red{
+  color: var(--skin-accent);
+}
+.text-pink{
+  color: #f2a7a7;
+}
+.w-40{
+  width: 40px;
+}
+.w-50{
+  width: 50px;
+}
+.pb-25{
+  padding-bottom: 25px;
+}
+.mb-15rem{
+  margin-bottom: 1.5rem;
+}
+.object-center-left {
+    object-position: center left;
+}
+
+/* Page transition utility */
+.page-enter {
+  animation: fadeUp 0.6s ease forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Title */
+.title-section {
+    padding-bottom: 20px;
+}
+.title-section h1 {
+    color: #fff;
+    text-transform: uppercase;
+    margin: 0;
+    font-size: 56px;
+    font-weight: 900;
+}
+.title-section h1 span {
+    color: var(--skin-accent);
+}
+.title-bg {
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    color: #ffffff12;
+    font-size: 110px;
+    font-weight: 800;
+    line-height: .7;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+
+/* Swiper */
+.work-swiper {
+  height: 100vh;
+}
+
+.work-slide {
+  position: relative;
+  overflow: hidden;
+}
+
+.slide-image {
+  transition: transform 1s ease;
+}
+
+.swiper-slide-active .slide-image {
+  transform: scale(1.05);
+}
+
+.slide-overlay {
+  background: linear-gradient(
+    to right,
+    rgba(0,0,0,0.9),
+    rgba(0,0,0,0.4)
+  );
+}
+
+/* Responsive Views */
+@media (max-width: 1023px) {
+  main{
+    flex-direction: column;
+    padding-bottom: 100px;
+  }
+  main.py-20 {
+    padding: 0 20px 100px;
+  }
+  .pr-28 {
+    padding-right: 20px;
+  }
+  .px-16 {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .p-8 {
+    padding: 2rem 0;
+  }
+  .title-section {
+    padding-top: 100px;
+  }
+  .menu-bar{
+    right: 0;
+    left: 0;
+    width: 100%;
+    flex-direction: row;
+    align-items: flex-start;
+    height: auto;
+    padding: 0;
+    margin: auto;
+    gap:.5rem;
+    top: 20px;
+  }
+  .social-bar{
+    bottom: 20px;
+    left: inherit;
+    right: inherit;
+    width: 100%;
+    flex-direction: row;
+    align-items: flex-start;
+    height: auto;
+    padding: 0;
+    top: inherit;
+  }
+  .social-bar a:focus-visible{
+    outline:0;
+  }
+  .social-bar .flex-col.items-center{
+    flex-direction: row;
+  }
+  .social-bar .h-24{
+    display: none;
+  }
+  .social-bar .gap-5{
+    gap: .5rem;
+  }
+  .profile-image {
+    margin-left: 0;
+  }
+  .timeline-container{
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  .portfolio-slider .slider-cols{
+    flex-direction: column;
+  }
+  .portfolio-slider .slider-cols > .relative{
+    max-width: inherit;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    margin-bottom: 50px;
+  }
+  .title-bg{
+    font-size: 70px;
+  }
+  .title-section h1 {
+    font-size: 38px;
+  }
+  .max-w-3xl {
+    max-width: 100%;
+  }
+  .hide-mob{
+    display: none;
+  }
+  .menu-bar a:hover span{
+      opacity: 0!important;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1100px) {
+  .pr-28 {
+      padding-right: 5rem;
+  }
+}
