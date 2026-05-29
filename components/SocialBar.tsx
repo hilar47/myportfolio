@@ -5,7 +5,7 @@ import { FaX, FaCodepen, FaGithub } from "react-icons/fa6";
 
 const socials = [
   { icon: FaFacebookF, href: "https://www.facebook.com/hilario.goes", label: "Facebook" },
-  { icon: FaX,   href: "https://x.com/hilar47",  label: "Twitter"  },
+  // { icon: FaX,   href: "https://x.com/hilar47",  label: "Twitter"  },
   { icon: FaInstagram, href: "https://www.instagram.com/hilar47/", label: "Instagram"},
   { icon: FaLinkedin, href: "https://www.linkedin.com/in/hilario-goes", label: "LinkedIn"},
   { icon: FaDribbble, href: "https://dribbble.com/hilar47", label: "Dribbble"},

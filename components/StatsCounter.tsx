@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 const stats = [
   { target: 15,  suffix: "+",  label: "Years Of Experience" },
   { target: 50, suffix: "+",  label: "Complete Projects"   },
-  { target: 20, suffix: "+",  label: "Honors and Awards"},
-  { target: 10,  suffix: "+",  label: "Recommendations & Testiomials"       },
+  { target: 10, suffix: "+",  label: "Honors and Awards"},
+  { target: 5,  suffix: "+",  label: "Recommendations & Testiomials"       },
 ];
 
 function easeOutQuart(t: number) {

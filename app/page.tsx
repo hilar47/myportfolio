@@ -140,7 +140,7 @@ export default function Home() {
           {[
             { num: "15+", label: "Years Experience" },
             { num: "50+", label: "Projects Done" },
-            { num: "20+", label: "Honors and Awards" },
+            { num: "10+", label: "Honors and Awards" },
           ].map((s) => (
             <div key={s.label}>
               <p className="text-5xl font-black text-[#cc0000]">{s.num}</p>

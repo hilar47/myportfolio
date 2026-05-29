@@ -1,6 +1,6 @@
 # Hilario Goes Portfolio — Next.js 15
 
-A pixel-perfect recreation of the dark red portfolio design, built with
+My portfolio website, built with
 **Next.js 15 (App Router)**, **TypeScript**, and **Tailwind CSS**.
 
 ---
@@ -12,20 +12,32 @@ portfolio/
 ├── app/
 │   ├── layout.tsx          ← Root layout (fonts, metadata)
 │   ├── globals.css         ← Tailwind base + CSS variables
-│   ├── page.tsx            ← Home / Hero page
+│   ├── page.tsx            ← Home page
 │   ├── about/
 │   │   └── page.tsx        ← About page with skill bars
+│   ├── awards/
+│   │   └── page.tsx        ← All my awards and recoginitions
 │   ├── work/
-│   │   └── page.tsx        ← Portfolio / work page (add yourself)
+│   │   └── page.tsx        ← Portfolio / work page
 │   ├── contact/
-│   │   └── page.tsx        ← Contact form page
-│   └── blog/
-│       └── page.tsx        ← Blog page (add yourself)
+│   │   └── page.tsx        ← Contact me
+│   └── education/
+│       └── page.tsx        ← My Qualifications and work exprience
 ├── components/
-│   └── Sidebar.tsx         ← Fixed right-side icon navigation
-├── public/
-│   └── images/
-│       └── profile.jpg     ← ⬅ PUT YOUR PHOTO HERE
+│   └── AwardsSlider.tsx         ← Component for awards 
+│   └── components.css         ← Component custom styling
+│   └── ContactForm.tsx         ← Component for contact form 
+│   └── CursorTrail.tsx         ← Component for cutsor animation (disabled for now) 
+│   └── EducationTimeline.tsx         ← Component for education 
+│   └── ExperienceTimeline.tsx         ← Component for experience
+│   └── ProjectSlide.tsx         ← Component for projects done
+│   └── Sidebar.tsx         ← Sidebar menu component
+│   └── SkillsMarquee.tsx         ← Component for my skills & technologies
+│   └── SocialBar.tsx         ← Component for social links
+│   └── StatsCounter.tsx         ← Component for my stats
+│   └── TestimonialsSlider.tsx         ← Component for testimonials
+│   └── TimelineColumn.tsx         ← Component for timeline
+│   └── TypeWriter.tsx         ← Component for typing animation
 ├── next.config.ts
 ├── tailwind.config.ts
 ├── tsconfig.json
@@ -35,77 +47,6 @@ portfolio/
 
 ---
 
-## 🚀 Step-by-Step Setup
-
-### Step 1 — Create the Next.js project
-
-```bash
-npx create-next-app@latest portfolio \
-  --typescript \
-  --tailwind \
-  --app \
-  --no-src-dir \
-  --import-alias "@/*"
-cd portfolio
-```
-
-### Step 2 — Install dependencies
-
-```bash
-npm install react-icons
-```
-
-### Step 3 — Replace generated files
-
-Copy the source files from this guide into your project, replacing the
-auto-generated ones. Specifically:
-
-| This file                    | Replaces / Creates          |
-|------------------------------|-----------------------------|
-| `app/layout.tsx`             | Replace generated layout    |
-| `app/globals.css`            | Replace generated styles    |
-| `app/page.tsx`               | Replace generated home page |
-| `app/about/page.tsx`         | Create new                  |
-| `app/contact/page.tsx`       | Create new                  |
-| `components/Sidebar.tsx`     | Create new                  |
-| `tailwind.config.ts`         | Replace generated config    |
-
-### Step 4 — Add your profile photo
-
-Place your photo at:
-
-```
-public/images/profile.jpg
-```
-
-> The image works best as a **portrait** (aspect ratio ~3:4), on a dark
-> background. Minimum 800×1000 px for sharp rendering.
-
-### Step 5 — Run the development server
-
-```bash
-npm run dev
-```
-
-Open **http://localhost:3000** — you should see the hero page.
-
-### Step 6 — Customise the content
-
-Open `app/page.tsx` and update:
-
-- Your name in the `<h1>` tag
-- Your title/role in the `<h2>` tag
-- The bio paragraph text
-- The stats numbers (years, projects, clients)
-
-### Step 7 — Build for production
-
-```bash
-npm run build
-npm start
-```
-
----
 
 ## 🎨 Design Tokens
 
@@ -122,14 +63,6 @@ npm start
 
 ---
 
-## 🔧 Deployment (Vercel — easiest)
-
-1. Push your project to GitHub
-2. Go to [vercel.com](https://vercel.com) → New Project → Import your repo
-3. Vercel auto-detects Next.js — click **Deploy**
-4. Your site is live in ~60 seconds 🎉
-
----
 
 ## 📝 Notes
 
