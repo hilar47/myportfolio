@@ -24,6 +24,12 @@ interface FloatingLogo {
   vx: number;
   vy: number;
   orbit: boolean;
+  /* fixed point this node orbits/wobbles around — scattered across
+     the whole canvas at spawn, NOT the shared canvas centre. Keeps
+     every node's motion local to its own spot instead of everyone
+     tracing one shared ellipse. */
+  anchorX: number;
+  anchorY: number;
   orbitRx: number;
   orbitRy: number;
   orbitSpeed: number;
@@ -123,21 +129,28 @@ function TechCloudCanvas({ logos }: { logos: typeof CLOUD_LOGOS }) {
       getComputedStyle(document.documentElement).getPropertyValue("--font-body").trim() ||
       "sans-serif";
 
-    const cx    = W / 2;
-    const cy    = H / 2;
-    const pad   = 14;
-    const maxRx = W / 2 - pad;
-    const maxRy = H / 2 - pad;
+    const pad = 14;
 
     /* ── Preload images + record natural dimensions ── */
-    const nodes: FloatingLogo[] = logos.map((logo, i) => {
-      const angle  = (i / logos.length) * Math.PI * 2;
-      const tMin   = 0.08;
-      const tMax   = 1.0;
-      const t      = tMin + Math.random() * (tMax - tMin);
-      const rx     = maxRx * t;
-      const ry     = maxRy * t;
-      const maxH   = logo.size ?? 32;
+    const nodes: FloatingLogo[] = logos.map((logo) => {
+      const maxH = logo.size ?? 32;
+
+      /* Scatter the anchor uniformly across the whole rectangle
+         (margin ~= half the icon's footprint so nothing spawns
+         clipped at an edge). This is what actually reaches the
+         corners — orbiting around a shared centre point, no matter
+         how the radius is sampled, can never cover more than an
+         inscribed ellipse. */
+      const marginX = pad + maxH * 0.7;
+      const marginY = pad + maxH * 0.7;
+      const anchorX = marginX + Math.random() * Math.max(0, W - marginX * 2);
+      const anchorY = marginY + Math.random() * Math.max(0, H - marginY * 2);
+
+      /* Small local wobble/orbit radius — motion stays near the
+         node's own spot rather than sweeping across the canvas. */
+      const orbitRx = 10 + Math.random() * 16;
+      const orbitRy = 8  + Math.random() * 14;
+      const orbitAngle = Math.random() * Math.PI * 2;
 
       return {
         name:        logo.name,
@@ -145,18 +158,20 @@ function TechCloudCanvas({ logos }: { logos: typeof CLOUD_LOGOS }) {
         imgW:        0,
         imgH:        0,
         maxH,
-        x:           cx + Math.cos(angle) * rx,
-        y:           cy + Math.sin(angle) * ry,
-        vx:          (Math.random() - 0.5) * 0.15,
-        vy:          (Math.random() - 0.5) * 0.15,
+        x:           anchorX + Math.cos(orbitAngle) * orbitRx,
+        y:           anchorY + Math.sin(orbitAngle) * orbitRy,
+        vx:          (Math.random() - 0.5) * 0.4,
+        vy:          (Math.random() - 0.5) * 0.4,
         orbit:       Math.random() > 0.4,
-        orbitRx:     rx,
-        orbitRy:     ry,
-        orbitSpeed:  (Math.random() * 0.0007 + 0.00015) * (Math.random() > 0.5 ? 1 : -1),
-        orbitAngle:  angle,
+        anchorX,
+        anchorY,
+        orbitRx,
+        orbitRy,
+        orbitSpeed:  (Math.random() * 0.0016 + 0.0004) * (Math.random() > 0.5 ? 1 : -1),
+        orbitAngle,
         pulse:       Math.random() * Math.PI * 2,
         pulseSpeed:  0.01 + Math.random() * 0.016,
-        wobbleAmp:   3 + Math.random() * 5,
+        wobbleAmp:   2 + Math.random() * 3,
         wobblePhase: Math.random() * Math.PI * 2,
         wobbleFreq:  0.3 + Math.random() * 0.5,
         hoverScale:  1,
@@ -280,11 +295,10 @@ function TechCloudCanvas({ logos }: { logos: typeof CLOUD_LOGOS }) {
 
         if (node.orbit) {
           node.orbitAngle += node.orbitSpeed;
-          const perp       = node.orbitAngle + Math.PI / 2;
-          const edgeFactor = 1 - Math.max(node.orbitRx / maxRx, node.orbitRy / maxRy) * 0.7;
-          const wOff       = Math.sin(tick * 0.01 * node.wobbleFreq + node.wobblePhase) * node.wobbleAmp * edgeFactor;
-          node.x = cx + Math.cos(node.orbitAngle) * node.orbitRx + Math.cos(perp) * wOff;
-          node.y = cy + Math.sin(node.orbitAngle) * node.orbitRy + Math.sin(perp) * wOff;
+          const perp = node.orbitAngle + Math.PI / 2;
+          const wOff = Math.sin(tick * 0.01 * node.wobbleFreq + node.wobblePhase) * node.wobbleAmp;
+          node.x = node.anchorX + Math.cos(node.orbitAngle) * node.orbitRx + Math.cos(perp) * wOff;
+          node.y = node.anchorY + Math.sin(node.orbitAngle) * node.orbitRy + Math.sin(perp) * wOff;
         } else {
           /* free-floating with friction */
           node.x  += node.vx;
@@ -297,12 +311,15 @@ function TechCloudCanvas({ logos }: { logos: typeof CLOUD_LOGOS }) {
           if (node.x > W - iw / 2 - 2)  { node.x = W - iw / 2 - 2;  node.vx *= -0.7; }
           if (node.y < ih / 2 + 2)      { node.y = ih / 2 + 2;       node.vy *= -0.7; }
           if (node.y > H - ih / 2 - 2)  { node.y = H - ih / 2 - 2;   node.vy *= -0.7; }
-          /* once nearly stopped, re-enter orbit */
+          /* once nearly stopped, re-enter orbit around wherever it
+             settled — not a radius measured from the canvas centre,
+             so it keeps whatever spot it drifted to instead of being
+             pulled back toward the middle. */
           if (!node.dragging && Math.abs(node.vx) < 0.05 && Math.abs(node.vy) < 0.05) {
-            node.orbit       = true;
-            node.orbitAngle  = Math.atan2(node.y - cy, node.x - cx);
-            node.orbitRx     = Math.abs(node.x - cx);
-            node.orbitRy     = Math.abs(node.y - cy);
+            node.orbit      = true;
+            node.anchorX    = node.x;
+            node.anchorY    = node.y;
+            node.orbitAngle = Math.random() * Math.PI * 2;
           }
         }
 
