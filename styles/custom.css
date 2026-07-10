@@ -1,0 +1,2029 @@
+/* ================================================================
+   custom.css
+   Page-level styles that cannot be expressed with Tailwind alone.
+   Scoped per page section to avoid conflicts.
+   ================================================================ */
+
+/* ─── Home / Hero Page ──────────────────────────────────────────────── */
+
+/* Menu overlay text stroke effect */
+.menu-overlay a {
+  color: transparent !important;
+  -webkit-text-stroke: 1px rgba(232, 228, 220, 0.65);
+}
+
+.menu-overlay a:hover {
+  color: #fff !important;
+  -webkit-text-stroke: 1px transparent;
+}
+
+
+/* Typewriter cursor blink */
+.typewriter-cursor {
+  transition: opacity 0.1s;
+}
+
+.stats-container{
+  right: 2rem;
+  top: 0;
+  transform: none;
+  justify-content: center;
+  opacity: 1;
+  bottom: 0;
+  margin: auto;
+}
+
+/* ─── About Page ────────────────────────────────────────────────────── */
+
+.about-orb-track {
+  background: rgba(232, 228, 220, 0.1);
+  width: 1px;
+  left:0;
+}
+
+.about-orb-progress {
+  background: linear-gradient(to bottom, #a2e773, rgba(162, 231, 115, 0.3));
+  width: 1px;
+  left:0;
+  transform-origin: top;
+}
+
+/* ─── Contact Page ──────────────────────────────────────────────────── */
+.contact-p {
+  font-size: 12px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(232, 228, 220, 0.5);
+  margin-bottom: 11px;
+}
+
+.contact-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(232, 228, 220, 0.12);
+  color: rgb(232, 228, 220);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  padding: 0.8rem 0;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+  cursor: text;
+}
+
+.contact-input:focus {
+  border-bottom-color: #a2e773;
+}
+
+.contact-textarea {
+  resize: none;
+}
+
+.contact-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(232, 228, 220, 0.5);
+  margin-bottom: 0.5rem;
+  transition: color 0.2s;
+}
+
+.contact-label.focused {
+  color: #a2e773;
+}
+
+/* ─── Skills Page ───────────────────────────────────────────────────── */
+
+.skill-logo-cloud-item {
+  transition: transform 0.3s, filter 0.3s, opacity 0.3s;
+}
+
+.skill-logo-cloud-item:hover {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 6px rgba(162, 231, 115, 0.5));
+  opacity: 1 !important;
+}
+
+/* ─── Projects Page ─────────────────────────────────────────────────── */
+
+.project-card-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(10, 10, 10, 0.97) 0%,
+    rgba(10, 10, 10, 0.6) 50%,
+    rgba(10, 10, 10, 0) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.project-card:hover .project-card-overlay {
+  opacity: 1;
+}
+
+/* ─── Experience / Timeline ─────────────────────────────────────────── */
+
+.timeline-connector {
+  background: rgba(232, 228, 220, 0.08);
+  width: 1px;
+  flex-shrink: 0;
+}
+
+/* ─── Awards Page ───────────────────────────────────────────────────── */
+
+.award-card {
+  transition: border-color 0.4s, background 0.4s;
+  scroll-snap-align: start;
+}
+
+.award-card:hover {
+  background: rgba(162, 231, 115, 0.03);
+}
+
+/* ─── Vignette Overlays ─────────────────────────────────────────────── */
+
+.vignette-sides {
+  background: linear-gradient(
+    to right,
+    rgba(8, 8, 8, 0.88) 0%,
+    rgba(8, 8, 8, 0.45) 18%,
+    rgba(8, 8, 8, 0) 40%,
+    rgba(8, 8, 8, 0) 60%,
+    rgba(8, 8, 8, 0.45) 82%,
+    rgba(8, 8, 8, 0.88) 100%
+  );
+}
+
+.vignette-bottom {
+  background: linear-gradient(
+    to top,
+    rgba(8, 8, 8, 0.95) 0%,
+    rgba(8, 8, 8, 0.45) 28%,
+    transparent 58%
+  );
+}
+
+/* ─── Download CV Button ────────────────────────────────────────────── */
+
+.btn-download-cv {
+  background: rgb(162, 231, 115);
+  color: rgb(10, 10, 10);
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.42rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s;
+}
+
+.btn-download-cv:hover {
+  background: #665c9f;
+}
+
+/* ─── Social Link Hover ─────────────────────────────────────────────── */
+
+.social-link {
+  color: rgba(232, 228, 220, 0.45);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.social-link:hover {
+  transform: translateY(-2px);
+}
+
+/* ─── City Timeline ─────────────────────────────────────────────────── */
+
+.city-connector {
+  width: 3.5rem;
+  height: 1px;
+  margin: -1rem 0.5rem 0;
+  background: repeating-linear-gradient(
+    to right,
+    rgba(232, 228, 220, 0.3) 0px,
+    rgba(232, 228, 220, 0.3) 3px,
+    transparent 3px,
+    transparent 6px
+  );
+}
+
+/* ─── Stat Numbers ──────────────────────────────────────────────────── */
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  line-height: 1;
+  color: #a2e773;
+  letter-spacing: -0.02em;
+}
+
+.stat-label {
+  font-family: var(--font-body);
+  font-size: 15px;
+  letter-spacing: 0.2em;
+  color: rgba(232, 228, 220, 1);
+  text-transform: uppercase;
+  line-height: 1.5;
+  margin-top: 0.15rem;
+  white-space: pre-line;
+}
+
+/* ─── Page Background (shared) ──────────────────────────────────────── */
+
+.page-bg {
+  background: radial-gradient(
+      ellipse 80% 80% at 50% -20%,
+      rgba(120, 119, 198, 0.3),
+      transparent
+    ),
+    rgb(10, 10, 10);
+}
+
+/* Page classes */
+.page-top-text{
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: rgb(162, 231, 115);
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+  font-family:var(--font-body);
+}
+.page-title{
+  font-family:var(--font-secondary);
+  font-size: 70px;
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: rgb(232, 228, 220);
+}
+.page-title span{
+    -webkit-text-stroke: 1px rgba(232, 228, 220, 0.4);
+    color: transparent;
+}
+.page-description{
+    font-size: 16px;
+    color: rgba(232, 228, 220, 1);
+    margin-top: 1rem;
+    line-height: 1.6;
+}
+
+/* Contact page styling */
+
+.contact-page-root {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  background: radial-gradient(ellipse 80% 80% at 50% -20%, #7877c64d, #fff0), rgb(10 10 10);
+  font-family: var(--font-display);
+  /* cursor: none; */
+}
+
+.contact-inner {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 3rem 2rem 6rem;
+}
+
+.contact-hero {
+  margin-bottom: 5rem;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+/* Detail blocks */
+.contact-detail-block {
+  margin-bottom: 3rem;
+}
+
+.contact-detail-link {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgb(232, 228, 220);
+  text-decoration: none;
+  /* cursor: none; */
+  transition: color 0.2s;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.contact-detail-link--muted {
+  color: rgba(232, 228, 220, 0.45);
+  margin-bottom: 0;
+}
+
+.contact-detail-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+  font-weight: 600;
+  color: rgb(232, 228, 220);
+}
+
+.contact-divider {
+  height: 1px;
+  background: linear-gradient(to right, rgba(162, 231, 115, 0.25), transparent);
+  margin-bottom: 2.5rem;
+}
+
+/* CTA buttons */
+.contact-cta-row {
+  margin-bottom: 3rem;
+}
+
+.contact-btn-primary {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  background: #a2e773;
+  padding: 11px 1.4rem;
+  text-decoration: none;
+  /* cursor: none; */
+  transition: background 0.2s;
+  display: inline-block;
+  border: 1px solid #a2e773;
+}
+.contact-btn-primary:hover{
+  color: #a2e773;
+  background: #0a0a0a;
+  border: 1px solid #a2e773;
+}
+
+.contact-btn-secondary {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(232, 228, 220, 0.7);
+  background: transparent;
+  border: 1px solid rgba(232, 228, 220, 0.15);
+  padding: 11px 1.4rem;
+  text-decoration: none;
+  /* cursor: none; */
+  transition: border-color 0.2s, color 0.2s;
+  display: inline-block;
+}
+
+/* Socials */
+.contact-social-heading {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(232, 228, 220, 0.5);
+  margin-bottom: 1rem;
+}
+
+.contact-social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(232, 228, 220, 0.35);
+  text-decoration: none;
+  /* cursor: none; */
+  transition: color 0.2s;
+}
+
+.contact-social-label {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.contact-social-icon-text {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Form */
+.contact-field-wrapper {
+  position: relative;
+  margin-bottom: 1.6rem;
+}
+
+.contact-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2rem;
+}
+
+.contact-submit-row {
+  margin-top: 0.5rem;
+}
+
+.contact-submit-btn {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  background: #a2e773;
+  border: 1px solid #a2e773;
+  padding: 0.75rem 2.5rem;
+  /* cursor: none; */
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.contact-submit-btn:hover{
+  color: #a2e773;
+  background: #0a0a0a;
+  border: 1px solid #a2e773;
+}
+
+/* Success state */
+.contact-success {
+  padding: 4rem 3rem;
+  border: 1px solid rgba(162, 231, 115, 0.2);
+  text-align: center;
+}
+
+.contact-success-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.contact-success-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #a2e773;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.contact-success-body {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: rgba(232, 228, 220, 1);
+  line-height: 1.7;
+}
+
+/* Availability note */
+.contact-availability {
+  margin-top: 3rem;
+  padding: 1.2rem 1.4rem;
+  border-left: 2px solid rgba(162, 231, 115, 0.35);
+  background: rgba(162, 231, 115, 0.03);
+}
+
+.contact-availability-text {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: rgba(232, 228, 220, 1);
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+}
+
+.contact-availability-highlight {
+  color: #a2e773;
+  font-weight: 500;
+}
+
+/* Footer */
+.contact-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 2rem;
+  border-top: 1px solid rgba(232, 228, 220, 0.06);
+}
+
+.contact-footer-text {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: rgba(232, 228, 220, 0.18);
+  text-transform: uppercase;
+}
+
+/* ─── Awards Page (refactored from inline styles) ───────────────────── */
+
+/* Page root */
+.awards-page-root {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow-y: auto;
+  background: radial-gradient(ellipse 80% 60% at 50% -10%, #7877c630, transparent), rgb(10 10 10);
+  font-family: var(--font-display);
+  /* cursor: none; */
+}
+
+/* Centered content wrapper */
+.awards-inner {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 6rem;
+}
+
+/* Hero / heading block */
+.awards-hero {
+  margin-bottom: 3rem;
+}
+
+/* Scroller section spacing */
+.awards-scroller-section {
+  margin-bottom: 6rem;
+}
+
+/* Horizontal divider before testimonials */
+.awards-section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, rgba(162, 231, 115, 0.3), rgba(232, 228, 220, 0.06) 60%, transparent);
+  margin-bottom: 3rem;
+}
+
+/* ── Award Card ─────────────────────────────────────────────────── */
+
+.award-card {
+  min-width: 320px;
+  width: 320px;
+  flex-shrink: 0;
+  padding: 2rem 1.75rem;
+  position: relative;
+  overflow: hidden;
+  /* cursor: none; */
+  scroll-snap-align: start;
+  /* border and background are dynamic (per-card colour) — kept inline */
+  transition: border-color 0.4s, background 0.4s;
+}
+
+/* Year watermark — colour is dynamic (per-card + hover), kept inline */
+.award-card-year {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  user-select: none;
+  transition: color 0.4s;
+}
+
+/* Per-card radial glow (rendered only when hovered) */
+.award-card-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Icon box — border/background use per-card colour, kept inline */
+.award-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: background 0.4s;
+}
+
+/* Card title */
+.award-card-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgb(232, 228, 220);
+  line-height: 1.1;
+  margin-bottom: 0.35rem;
+}
+
+/* Org label — colour is dynamic (per-card accent), kept inline */
+.award-card-org {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+/* Animated accent line — width animates on hover (kept inline) */
+.award-card-divider {
+  height: 1px;
+  margin-bottom: 1rem;
+  transition: width 0.4s;
+}
+
+/* Description text */
+.award-card-desc {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(232, 228, 220, 0.45);
+  font-weight: 300;
+}
+
+/* ── Awards Scroller ────────────────────────────────────────────── */
+
+.awards-scroller-root {
+  position: relative;
+}
+
+.awards-scroller-track {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-bottom: 4px;
+}
+
+.awards-scroller-track::-webkit-scrollbar {
+  display: none;
+}
+
+.awards-scroller-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.75rem;
+}
+
+/* Scroll arrow buttons — active colour is state-driven, kept inline */
+.awards-scroll-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(232, 228, 220, 0.12);
+  flex-shrink: 0;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+/* Progress bar track */
+.awards-progress-track {
+  flex: 1;
+  height: 1px;
+  background: rgba(232, 228, 220, 0.1);
+  position: relative;
+}
+
+/* Progress bar fill — width is dynamic (scroll %), kept inline */
+.awards-progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: #a2e773;
+  transition: width 0.1s linear;
+}
+
+/* ── Testimonials ───────────────────────────────────────────────── */
+
+.testimonials-root {
+  width: 100%;
+}
+
+.testimonials-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: rgb(232, 228, 220);
+  margin-bottom: 2.5rem;
+}
+
+.testimonials-perspective {
+  perspective: 1400px;
+  width: 100%;
+}
+
+.testimonial-card {
+  background: rgba(14, 14, 14, 0.95);
+  border: 1px solid rgba(232, 228, 220, 0.1);
+  padding: 3rem 3.5rem;
+  position: relative;
+  overflow: hidden;
+  backface-visibility: hidden;
+  width: 100%;
+}
+
+/* Vertical centre line decoration */
+.testimonial-center-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(232, 228, 220, 0.04) 20%,
+    rgba(232, 228, 220, 0.07) 50%,
+    rgba(232, 228, 220, 0.04) 80%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* Horizontal ruled-line grid overlay */
+.testimonial-grid-lines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 32px,
+    rgba(232, 228, 220, 0.015) 32px,
+    rgba(232, 228, 220, 0.015) 33px
+  );
+  pointer-events: none;
+}
+
+/* Large decorative opening quote */
+.testimonial-quote-mark {
+  font-family: Georgia, serif;
+  font-size: 8rem;
+  line-height: 0.7;
+  color: rgba(162, 231, 115, 0.1);
+  margin-bottom: 0.5rem;
+  user-select: none;
+}
+
+.testimonial-blockquote {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+  font-style: italic;
+  line-height: 1.85;
+  color: rgba(232, 228, 220, 0.82);
+  margin: 0 0 2.5rem;
+  position: relative;
+  z-index: 1;
+  max-width: 80ch;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(162, 231, 115, 0.12);
+  border: 1px solid rgba(162, 231, 115, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #a2e773;
+  flex-shrink: 0;
+}
+
+.testimonial-name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgb(232, 228, 220);
+}
+
+.testimonial-meta {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  color: rgba(232, 228, 220, 0.4);
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+/* Controls row */
+.testimonials-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.testimonials-dots {
+  display: flex;
+  gap: 6px;
+}
+
+/* Dot button — width and background are active-state driven, kept inline */
+.testimonial-dot {
+  height: 6px;
+  border-radius: 3px;
+  border: none;
+  padding: 0;
+  /* cursor: none; */
+  transition: width 0.3s, background 0.3s;
+}
+
+.testimonials-nav-btns {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Nav arrow buttons */
+.testimonial-nav-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(232, 228, 220, 0.14);
+  color: rgba(232, 228, 220, 0.5);
+  /* cursor: none; */
+  transition: border-color 0.2s, color 0.2s;
+}
+
+/* Awards testimonials heading */
+.awards-testimonials-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: rgb(232, 228, 220);
+  margin-bottom: 2.5rem;
+}
+
+
+/* ─── Experience Page (refactored from inline styles) ───────────────── */
+
+/* Page root */
+.experience-page-root {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  background: radial-gradient(ellipse 80% 80% at 50% -20%, #7877c64d, transparent), rgb(10 10 10);
+  font-family: var(--font-display);
+  /* cursor: none; */
+}
+
+/* Centered content wrapper */
+.experience-inner {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 2rem 2rem 6rem;
+}
+
+/* ── Section label row (Work History / Education) ───────────────── */
+
+.exp-section-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.exp-section-label-line {
+  width: 20px;
+  height: 1px;
+  background: #a2e773;
+  opacity: 0.6;
+}
+
+.exp-section-label-text {
+  font-family: var(--font-body);
+  font-size: 14px;
+  letter-spacing: 0.35em;
+  color: rgba(232, 228, 220, 0.6);
+  text-transform: uppercase;
+}
+
+/* Horizontal section dividers */
+.exp-divider {
+  height: 1px;
+  background: rgba(232, 228, 220, 0.06);
+  margin: 3rem 0;
+}
+
+.exp-divider--bottom {
+  margin: 4rem 0 3rem;
+}
+
+/* ── Timeline stem ──────────────────────────────────────────────── */
+
+.timeline-stem {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  transform: translateX(-50%);
+  background: rgba(232, 228, 220, 0.08);
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Fill bar — height is scroll-driven (%), kept inline */
+.timeline-stem-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to bottom, #a2e773cc, #a2e77366);
+  box-shadow: 0 0 8px #a2e77344;
+  transition: height 0.08s linear;
+}
+
+/* Glowing travelling tip — top % is scroll-driven, kept inline */
+.timeline-stem-tip {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #a2e773;
+  box-shadow: 0 0 10px #a2e773, 0 0 20px #a2e77388;
+  transition: top 0.08s linear;
+}
+
+/* ── Work entry row (3-col grid) ────────────────────────────────── */
+
+.work-entry-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 48px 1fr;
+  min-height: 160px;
+}
+
+/* Card wrapper — left side (right-aligned card) */
+.work-entry-card-wrap--right {
+  max-width: 400px;
+  width: 100%;
+  text-align: right;
+}
+
+/* Card wrapper — right side */
+.work-entry-card-wrap {
+  max-width: 550px;
+  width: 100%;
+}
+
+/* Period label shown on the empty side */
+.work-entry-period {
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 0.2em;
+  color: rgba(232, 228, 220, 1);
+  text-transform: uppercase;
+}
+
+/* Centre dot + stem column */
+.work-entry-spine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* Timeline node dot — border and boxShadow use per-entry colour, kept inline */
+.work-entry-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgb(10, 10, 10);
+  z-index: 2;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ── Entry Card ─────────────────────────────────────────────────── */
+
+.entry-card {
+  border: 1px solid rgba(232, 228, 220, 0.1);
+  padding: 1.4rem;
+  position: relative;
+  overflow: hidden;
+  /* cursor: none; */
+  transition: background 0.3s;
+}
+
+/* Vertical accent bar — left/right position and opacity are state-driven, kept inline */
+.entry-card-bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  transition: opacity 0.3s;
+}
+
+/* Side glow — left/right position, gradient direction, and opacity are state-driven, kept inline */
+.entry-card-glow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+/* Company label — colour is per-entry accent, kept inline */
+.entry-card-company {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+  opacity: 0.8;
+}
+
+.entry-card-title {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.05;
+  color: rgb(232, 228, 220);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  margin-bottom: 0.5rem;
+}
+
+.entry-card-location {
+  font-family: var(--font-body);
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  color: rgba(232, 228, 220, 0.35);
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.entry-card-desc {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: rgba(232, 228, 220, 0.6);
+  line-height: 1.65;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.01em;
+}
+
+.entry-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.entry-card-tag {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(232, 228, 220, 0.4);
+  border: 1px solid rgba(232, 228, 220, 0.1);
+  padding: 2px 6px;
+}
+
+/* ── Education Card ─────────────────────────────────────────────── */
+
+.edu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.edu-card {
+  border: 1px solid rgba(232, 228, 220, 0.1);
+  background: rgba(232, 228, 220, 0.015);
+  padding: 1.2rem 1.4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Top accent gradient line — colour is per-entry, kept inline */
+.edu-card-top-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+}
+
+.edu-card-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Period label — colour is per-entry accent, kept inline */
+.edu-card-period {
+  font-family: var(--font-body);
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+  opacity: 0.8;
+}
+
+.edu-card-title {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 500;
+  color: rgb(232, 228, 220);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+  margin-bottom: 0.3rem;
+}
+
+.edu-card-institution {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: rgba(232, 228, 220, 0.4);
+  letter-spacing: 0.05em;
+}
+
+/* Result badge — border and bg are per-entry colour, kept inline */
+.edu-card-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+/* Badge label — colour is per-entry accent, kept inline */
+.edu-card-badge-text {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+/* ── Stats row ──────────────────────────────────────────────────── */
+
+.exp-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  border: 1px solid rgba(232, 228, 220, 0.08);
+}
+
+.exp-stat-cell {
+  padding: 2rem;
+  background: rgba(232, 228, 220, 0.015);
+  border-right: 1px solid rgba(232, 228, 220, 0.08);
+  text-align: center;
+}
+
+.exp-stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  color: #a2e773;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.exp-stat-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: rgba(232, 228, 220, 0.35);
+  text-transform: uppercase;
+  margin-top: 0.4rem;
+}
+
+
+/* ─── About Page (refactored from inline styles) ────────────────────── */
+
+/* Page root */
+.about-page-root {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(ellipse 80% 80% at 50% -20%, #7877c64d, transparent), rgb(10 10 10);
+  font-family: var(--font-display);
+  /* cursor: none; */
+}
+
+/* Two-column layout: scroll area + sidebar */
+.about-layout {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  top: 4rem;
+  display: flex;
+}
+
+/* ── Sidebar ────────────────────────────────────────────────────── */
+
+.about-sidebar {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  order: 2; /* renders on the right */
+  width: 300px;
+  padding: 2.5rem 2.5rem 3rem 2rem;
+  border-left: 1px solid rgba(232, 228, 220, 0.07);
+  background: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(120, 119, 198, 0.3), transparent), rgb(10, 10, 10);
+  overflow-y:auto;
+}
+
+.about-sidebar-identity {
+  margin-bottom: 2rem;
+}
+
+.about-sidebar-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: rgb(232, 228, 220);
+  line-height: 1.05;
+  margin-bottom: 11px;
+}
+
+.about-sidebar-role {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: rgba(232, 228, 220, 0.5);
+  text-transform: uppercase;
+}
+
+.about-sidebar-timeline {
+  flex: 1;
+  padding-left: 0.5rem;
+}
+
+.about-sidebar-stat {
+  margin-top: 2rem;
+}
+
+.about-sidebar-stat-num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: #a2e773;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.about-sidebar-stat-label {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: rgba(232, 228, 220, 0.6);
+  text-transform: uppercase;
+  margin-top: 0.2rem;
+}
+
+/* ── Orb Timeline ───────────────────────────────────────────────── */
+
+.orb-timeline-root {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* min-height: 100%; */
+}
+
+/* .about-orb-track and .about-orb-progress already defined above (About Page section) */
+
+/* Orb wrapper — top % is progress-driven, kept inline */
+.orb-timeline-orb-wrap {
+  transform: translate(-50%, -50%);
+  left: 7px;
+}
+
+.orb-timeline-orb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #a2e773;
+  box-shadow:
+    0 0 0 4px rgba(162, 231, 115, 0.15),
+    0 0 20px rgba(162, 231, 115, 0.5),
+    0 0 40px rgba(162, 231, 115, 0.25);
+}
+
+.orb-timeline-labels {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 100%;
+  padding-left: 1.75rem;
+  gap: 1.5rem;
+}
+
+.orb-timeline-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 0 15px;
+}
+
+/* Label text — colour is active-state driven, kept inline */
+.orb-timeline-btn-label {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+/* Caption text — colour is active-state driven, kept inline */
+.orb-timeline-btn-caption {
+  font-family: var(--font-body);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  /* max-width: 9rem; */
+  line-height: 1.5;
+  transition: color 0.3s;
+}
+
+/* ── Main scroll area ───────────────────────────────────────────── */
+
+.about-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.about-scroll-area::-webkit-scrollbar {
+  display: none;
+}
+
+/* Top fade overlay — sticky so it stays at the top while scrolling */
+.about-scroll-fade-top {
+  pointer-events: none;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 5rem;
+  /* background: linear-gradient(to bottom, rgb(10, 10, 10) 0%, transparent 100%); */
+  margin-bottom: -5rem;
+}
+
+.about-content-inner {
+  padding: 3rem 5rem 10rem;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+/* ── Section block ──────────────────────────────────────────────── */
+
+.about-section-block {
+  margin-bottom: 5rem;
+}
+
+.about-section-header {
+  margin-bottom: 5rem;
+}
+
+.about-section-divider {
+  margin-top: 2rem;
+  height: 1px;
+  background: linear-gradient(to right, rgba(162, 231, 115, 0.3), transparent);
+}
+
+.about-subsections {
+  display: flex;
+  flex-direction: column;
+  gap: 9rem;
+}
+
+/* ── Subsection card ────────────────────────────────────────────── */
+
+.subsection-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  /* direction (rtl/ltr) is flip-state driven, kept inline */
+}
+
+.subsection-card-text {
+  direction: ltr;
+}
+
+.subsection-card-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: rgb(232, 228, 220);
+  line-height: 1.05;
+  margin-bottom: 1.2rem;
+}
+
+.subsection-card-body {
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+  font-weight: 300;
+  color: rgba(232, 228, 220, 0.55);
+  line-height: 1.8;
+  letter-spacing: 0.01em;
+  text-align: justify;
+}
+
+.subsection-card-image-wrap {
+  direction: ltr;
+}
+
+.subsection-card-image-inner {
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: #1a1a1a;
+}
+
+/* Image transform on hover is state-driven, kept inline */
+.subsection-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(20%) contrast(0.92) brightness(0.8);
+  transition: transform 0.6s ease;
+}
+
+/* ── Footer CTA ─────────────────────────────────────────────────── */
+
+.about-footer-cta {
+  border-top: 1px solid rgba(232, 228, 220, 0.08);
+  padding-top: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.about-footer-cta-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: rgb(232, 228, 220);
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+}
+
+.about-footer-cta-email {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: rgba(232, 228, 220, 0.6);
+  margin-top: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+/* Nav buttons — colour and border-color are hover-state driven, kept inline */
+.about-footer-nav-btn {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(232, 228, 220, 0.8);
+  background: none;
+  border: 1px solid rgba(232, 228, 220, 0.1);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+
+/* ─── Work / Projects Page (refactored from inline styles) ──────────── */
+
+/* Page root */
+.projects-page-root {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  background: radial-gradient(ellipse 80% 80% at 50% -20%, #7877c64d, transparent), rgb(10 10 10);
+  font-family: var(--font-display);
+  /* cursor: none; */
+}
+
+/* Centred content wrapper */
+.projects-inner {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 2rem 2rem 5rem;
+}
+
+/* Hero row — title + description side by side */
+.projects-hero-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* "— Featured" section label */
+.projects-section-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  color: rgba(232, 228, 220, 1);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+/* ── Featured Slider ────────────────────────────────────────────── */
+
+.featured-slider-frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(232, 228, 220, 0.12);
+  height: 440px;
+}
+
+.featured-slide {
+  position: absolute;
+  inset: 0;
+}
+
+.featured-slide-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  /* height: 100%; */
+  object-fit: cover;
+  /* filter: brightness(0.38) saturate(0.5) grayscale(20%); */
+  filter: brightness(0.5);
+}
+
+.featured-slide-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.94) 45%, rgba(0, 0, 0, 0.25) 100%);
+}
+
+.featured-slide-content {
+  position: absolute;
+  inset: 0;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.featured-slide-number {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: rgba(232, 228, 220, 0.4);
+}
+
+.featured-slide-badge {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #a2e773;
+  border: 1px solid #a2e77340;
+  padding: 2px 8px;
+}
+
+.featured-slide-year {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: rgba(232, 228, 220, 0.35);
+  text-transform: uppercase;
+}
+
+.featured-slide-category {
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  letter-spacing: 0.25em;
+  color: #a2e773;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.featured-slide-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 800;
+  line-height: 0.9;
+  color: rgb(232, 228, 220);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+}
+
+.featured-slide-desc {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: rgba(232, 228, 220, 0.6);
+  line-height: 1.7;
+  max-width: 80%;
+  margin-bottom: 1.5rem;
+}
+
+.featured-slide-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.featured-slide-tech-tag {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(232, 228, 220, 0.5);
+  border: 1px solid rgba(232, 228, 220, 0.12);
+  padding: 2px 7px;
+}
+
+.featured-slide-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #a2e773;
+  text-decoration: none;
+}
+.featured-slide-link:hover{
+  color: #fff;
+}
+
+/* Controls row below the slider */
+.featured-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 11px;
+  margin-top: 0.75rem;
+}
+
+.featured-dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-right: 0.25rem;
+}
+
+.featured-dot-btn {
+  background: none;
+  border: none;
+  /* cursor: none; */
+  padding: 0;
+}
+
+/* Dot bar — width and background are active-state driven, kept inline */
+.featured-dot {
+  height: 2px;
+  border-radius: 1px;
+  transition: all 0.3s;
+}
+
+.featured-nav-btn {
+  background: transparent;
+  border: 1px solid rgba(232, 228, 220, 0.2);
+  /* cursor: none; */
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(232, 228, 220, 0.6);
+}
+
+/* ── Filter bar ─────────────────────────────────────────────────── */
+
+.projects-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.projects-filter-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: rgba(232, 228, 220, 0.3);
+  text-transform: uppercase;
+  margin-right: 0.5rem;
+}
+
+/* Filter button — background, border, and color are active-state driven, kept inline */
+.projects-filter-btn {
+  /* cursor: none; */
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.85rem;
+  transition: all 0.2s;
+}
+
+/* ── Project grid ───────────────────────────────────────────────── */
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+/* ── Project card ───────────────────────────────────────────────── */
+
+.project-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(232, 228, 220, 0.1);
+  /* cursor: none; */
+  height: 300px;
+}
+
+/* Background image — filter is hover-state driven, kept inline */
+.project-card-bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  object-fit: contain;
+  transition: filter 0.55s ease;
+}
+
+.project-card-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.96) 0%,
+    rgba(0, 0, 0, 0.25) 60%,
+    rgba(0, 0, 0, 0.12) 100%
+  );
+}
+
+.project-card-body {
+  position: absolute;
+  inset: 0;
+  padding: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 1;
+}
+
+.project-card-number {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  color: rgba(232, 228, 220, 0.75);
+}
+
+.project-card-year {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: rgba(232, 228, 220, 0.7);
+  text-transform: uppercase;
+}
+
+.project-card-category {
+  font-family: var(--font-body);
+  font-size: 0.56rem;
+  letter-spacing: 0.22em;
+  color: #a2e773;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.project-card-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-weight: 700;
+  line-height: 0.95;
+  color: rgb(232, 228, 220);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.75rem;
+}
+
+.project-card-tech-tag {
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(232, 228, 220, 0.45);
+  border: 1px solid rgba(232, 228, 220, 0.1);
+  padding: 1px 5px;
+}
+
+/* Hover overlay */
+.project-card-hover-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.78);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.3rem;
+  z-index: 2;
+}
+
+.project-card-hover-desc {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: rgba(232, 228, 220, 0.9);
+  line-height: 1.65;
+}
+
+.project-card-visit-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #a2e773;
+  text-decoration: none;
+  /* cursor: none; */
+  background: rgba(162, 231, 115, 0.1);
+  border: 1px solid #a2e773;
+  padding: 5px 12px;
+}
+
+.project-card-private-label {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(232, 228, 220, 0.3);
+}
+
+/* ── Empty state ────────────────────────────────────────────────── */
+
+.projects-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 0;
+}
+
+.projects-empty-text {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: rgba(232, 228, 220, 0.3);
+  text-transform: uppercase;
+}
+
+
+/* ─── Skills Page (refactored from inline styles) ───────────────────── */
+
+/* Page root */
+.skills-page-root {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  background: radial-gradient(ellipse 80% 80% at 50% -20%, rgba(120, 119, 198, 0.3), transparent),
+    rgb(10, 10, 10);
+  /* cursor: none; */
+}
+
+/* Centred content wrapper */
+.skills-inner {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 2rem 2rem 6rem;
+}
+
+/* ── Tech cloud ─────────────────────────────────────────────────── */
+
+/* Canvas container — height uses clamp so it stays proportional */
+.skills-cloud-wrap {
+  position: relative;
+  width: 100%;
+  height: clamp(340px, 55vh, 600px);
+}
+
+/* Sci-fi corner brackets */
+.skills-cloud-bracket {
+  position: absolute;
+  pointer-events: none;
+  width: 18px;
+  height: 18px;
+}
+
+/* SVG bracket — rotation is position-driven, kept inline */
+.skills-cloud-bracket-svg {
+  opacity: 0.35;
+}
+
+/* ── Tabs row ───────────────────────────────────────────────────── */
+
+.skills-tabs-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-bottom: 2rem;
+}
+
+/* Tab button — border and color are active-state driven, kept inline */
+.skills-tab-btn {
+  font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: transparent;
+    line-height: 1;
+    padding: 0.5rem 0.85rem;
+    /* cursor: none; */
+    transition: border-color 0.2s, color 0.2s;
+}
+
+/* Group description */
+.skills-group-desc {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: rgba(232, 228, 220, 0.8);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+/* Skill name label inside each card */
+.skill-group-card-label {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: rgba(232, 228, 220, 0.75);
+  letter-spacing: 0.04em;
+}
+
+/* ── Stats row ──────────────────────────────────────────────────── */
+
+.skills-divider {
+  height: 1px;
+  background: rgba(232, 228, 220, 0.06);
+  margin: 4rem 0 3rem;
+}
+
+.skills-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  border: 1px solid rgba(232, 228, 220, 0.08);
+}

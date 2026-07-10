@@ -1,13 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "export", //if u want to host on static hosting like cpanel
+  output: "export",
+  trailingSlash: true,  //this is needed so that the static export works correctly with the SPA routing e.g. about.html and /about both will work.
   images: {
-    // If you host images externally, add domains here
-    // domains: ["your-cdn.com"],
     unoptimized: true,
   },
-  trailingSlash: true,
 };
 
 export default nextConfig;

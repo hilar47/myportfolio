@@ -1,128 +1,158 @@
 "use client";
-import Sidebar from "@/components/Sidebar";
-import ContactForm from "@/components/ContactForm";
-import { useEffect, useState } from "react";
-import { FiPhone, FiMail, FiMapPin } from "react-icons/fi";
-import { FaSkype } from "react-icons/fa";
 
-const contactInfo = [
-  {
-    icon: FiPhone,
-    label: "Phone Number (UAE)",
-    value: "+971-556329267",
-    href: "tel:+971556329267",
-  },
-  {
-    icon: FiPhone,
-    label: "Phone Number (India)",
-    value: "+91-9823675942",
-    href: "tel:+919823675942",
-  },
-  {
-    icon: FiMail,
-    label: "Email Address",
-    value: "hilariogoes47@gmail.com",
-    href: "mailto:hilariogoes47@gmail.com",
-  },
-  {
-    icon: FiMapPin,
-    label: "Address",
-    value: "Dubai, UAE",
-    href: "https://maps.app.goo.gl/F1tcdHfgx8ewV2j58",
-  },
+import { useState } from "react";
+import { motion } from "motion/react";
+import { Linkedin, Github, Instagram, Facebook } from "lucide-react";
+import { useRouter } from "next/navigation";
+// import CustomCursor from "@/components/ui/CustomCursor";
+import InnerNav from "@/components/layout/InnerNav";
+
+const NAV_ITEMS = ["Work", "About", "Skills", "Experience", "Awards", "Contact"];
+
+const SOCIALS = [
+  { label: "LinkedIn", href: "https://linkedin.com/in/hilario-goes", icon: <Linkedin size={15} /> },
+  { label: "GitHub", href: "https://github.com/hilar47", icon: <Github size={15} /> },
+  { label: "Instagram", href: "https://instagram.com/hilar47", icon: <Instagram size={15} /> },
+  { label: "Facebook", href: "https://facebook.com/hilario.goes", icon: <Facebook size={15} /> },
+  { label: "Dribbble", href: "https://dribbble.com/hilar47", icon: <span className="contact-social-icon-text">Db</span> },
+  { label: "CodePen", href: "https://codepen.io/hilar47", icon: <span className="contact-social-icon-text">Cp</span> },
 ];
 
+export default function ContactPage() {
+  const router = useRouter();
+  const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
+  const [sent, setSent] = useState(false);
+  const [focused, setFocused] = useState<string | null>(null);
 
-export default function Contact() {
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 100);
-    return () => clearTimeout(t);
-  }, []);
+  const onNav = (page: string) => {
+    if (page === "home") router.push("/");
+    else if (page === "projects") router.push("/projects");
+    else router.push("/" + page);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => { e.preventDefault(); setSent(true); };
+
+  const field = (id: keyof typeof form, label: string, type = "text", isTextarea = false) => (
+    <div className="contact-field-wrapper">
+      <label htmlFor={id} className={`contact-label${focused === id ? " focused" : ""}`}>{label}</label>
+      {isTextarea ? (
+        <textarea id={id} rows={5} value={form[id]} onFocus={() => setFocused(id)} onBlur={() => setFocused(null)} onChange={(e) => setForm({ ...form, [id]: e.target.value })}
+          className={`contact-input contact-textarea${focused === id ? " focused" : ""}`} />
+      ) : (
+        <input id={id} type={type} value={form[id]} onFocus={() => setFocused(id)} onBlur={() => setFocused(null)} onChange={(e) => setForm({ ...form, [id]: e.target.value })}
+          className={`contact-input${focused === id ? " focused" : ""}`} />
+      )}
+    </div>
+  );
 
   return (
-    <main className="min-h-screen bg-[#111] text-white flex overflow-hidden relative px-16 pr-28 py-20">
-      <div className="absolute top-0 left-0 w-[140px] h-[140px] bg-[#cc0000] rounded-br-[80px] z-0" />
+    <div className="contact-page-root">
+      {/* <CustomCursor /> */}
+      <InnerNav />
+      <svg className="pointer-events-none fixed inset-0 w-full h-full z-50 opacity-[0.28]" style={{ mixBlendMode: "soft-light" }}>
+        <filter id="grainC"><feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves={4} stitchTiles="stitch" /><feColorMatrix type="saturate" values="0" /></filter>
+        <rect width="100%" height="100%" filter="url(#grainC)" />
+      </svg>
 
-      <div className="relative z-10 w-full mx-auto page-enter">
-        {/* <div className="flex items-center gap-3 mb-3">
-          <span className="block w-6 h-[3px] bg-[#cc0000]" />
-          <span className="text-[#cc0000] font-bold tracking-widest uppercase text-xs">Get In Touch</span>
-        </div> */}
-       <section className="title-section text-center text-sm-center revealator-slideup revealator-once revealator-delay1">
-          <div className="position-relative" style={{ opacity: 1, transform: "none" }}>
-            <h1>Contact <span>Me</span></h1>
-            <span className="title-bg">GET IN TOUCH</span>
-          </div>
-        </section>
+      <div className="contact-inner">
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="contact-hero">
+          <p className="page-top-text">— Get In Touch</p>
+          <h1 className="page-title">
+            Contact <span>Me</span>
+          </h1>
+          <p className="page-description">Open to new opportunities — Whether you have a role in mind or just want to connect, I&apos;d love to hear from you.</p>
+        </motion.div>
 
-        <div className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-16 items-start">
-
-          {/* ── LEFT: Contact info cards ─────────────────────────── */}
-          <div className="flex flex-col gap-4 pt-2">
-            {/* Section label */}
-            <div className="flex items-center gap-3 mb-2">
-              <span className="block w-6 h-[3px] bg-[#cc0000]" />
-              <span className="text-[#cc0000] font-bold tracking-widest uppercase text-xs">
-                Get In Touch
-              </span>
-            </div>
-            <h1 className="text-4xl font-black mb-6">
-              Let's <span className="text-[#cc0000]">Talk</span>
-            </h1>
-
-            {contactInfo.map(({ icon: Icon, label, value, href }, i) => (
-              <a
-                key={label}
-                href={href}
-                target={href.startsWith("http") ? "_blank" : undefined}
-                rel="noopener noreferrer"
-                className={`
-                  group flex items-center gap-4
-                  bg-[#1a1a1a] border border-white/5 rounded-2xl
-                  px-5 py-4
-                  hover:border-[#cc0000]/40
-                  hover:shadow-[0_0_20px_rgba(204,0,0,0.1)]
-                  hover:bg-[#1f1f1f]
-                  transition-all duration-300
-                  transition-delay-[${i * 60}ms]
-                `}
-                style={{ transitionDelay: `${i * 60}ms` }}
-              >
-                {/* Icon box */}
-                <div className="
-                  flex-shrink-0 w-12 h-12 rounded-xl
-                  bg-[#cc0000]/10 border border-[#cc0000]/20
-                  flex items-center justify-center
-                  group-hover:bg-[#cc0000] group-hover:border-[#cc0000]
-                  transition-all duration-300
-                ">
-                  <Icon className="text-[#cc0000] group-hover:text-white text-lg transition-colors duration-300" />
-                </div>
-
-                {/* Text */}
-                <div>
-                  <p className="text-gray-500 text-xs uppercase tracking-wider mb-0.5">{label}</p>
-                  <p className="text-white text-md group-hover:text-[#cc0000] transition-colors duration-300">
-                    {value}
-                  </p>
-                </div>
+        <div className="contact-grid">
+          {/* LEFT — contact details */}
+          <motion.div initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.1 }}>
+            <div className="contact-detail-block">
+              <p className="contact-p">Email</p>
+              <a href="mailto:hilariogoes47@gmail.com" className="contact-detail-link"
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#a2e773"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgb(232,228,220)"; }}>
+                hilariogoes47@gmail.com
               </a>
-            ))}
+            </div>
+            <div className="contact-detail-block">
+              <p className="contact-p">Phone</p>
+              <a href="tel:+971556329267" className="contact-detail-link"
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#a2e773"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgb(232,228,220)"; }}>
+                +971 556 329 267
+              </a>
+              <a href="tel:+919823675942" className="contact-detail-link contact-detail-link--muted"
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#a2e773"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(232,228,220,0.45)"; }}>
+                +91 982 367 5942
+              </a>
+            </div>
+            <div className="contact-detail-block">
+              <p className="contact-p">Location</p>
+              <span className="contact-detail-text">Dubai, UAE</span>
+            </div>
+            <div className="contact-divider" />
+            <div className="flex gap-3 flex-wrap contact-cta-row">
+              <a href="mailto:hilariogoes47@gmail.com" className="contact-btn-primary">
+                Send Email
+              </a>
+              <a href="https://wa.me/971556329267" target="_blank" rel="noopener noreferrer" className="contact-btn-secondary"
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(162,231,115,0.4)"; (e.currentTarget as HTMLElement).style.color = "#a2e773"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(232,228,220,0.15)"; (e.currentTarget as HTMLElement).style.color = "rgba(232,228,220,0.7)"; }}>
+                WhatsApp
+              </a>
+            </div>
+            <div>
+              <p className="contact-social-heading">Find Me On</p>
+              <div className="flex gap-4 flex-wrap">
+                {SOCIALS.map(({ label, href, icon }) => (
+                  <a key={label} href={href} target="_blank" rel="noopener noreferrer" title={label}
+                    className="contact-social-link"
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#a2e773"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(232,228,220,0.35)"; }}>
+                    {icon}
+                    <span className="contact-social-label">{label}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </motion.div>
 
-          </div>
-
-          {/* ── RIGHT: Form component ─────────────────────────────── */}
-          <div className="
-            p-8 md:p-10]
-          ">
-            <ContactForm />
-          </div>
-
+          {/* RIGHT — form */}
+          <motion.div initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.2 }}>
+            {sent ? (
+              <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }} className="contact-success">
+                <div className="contact-success-icon">✓</div>
+                <p className="contact-success-title">Message Sent</p>
+                <p className="contact-success-body">Thanks for reaching out. I&apos;ll get back to you within one business day.</p>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit}>
+                <div className="contact-form-row">
+                  <div>{field("name", "Full Name")}</div>
+                  <div>{field("email", "Email Address", "email")}</div>
+                </div>
+                <div className="contact-form-row">
+                  <div>{field("phone", "Phone Number", "tel")}</div>
+                  <div>{field("subject", "Subject")}</div>
+                </div>
+                {field("message", "Message", "text", true)}
+                <div className="contact-submit-row">
+                  <button type="submit" className="contact-submit-btn">
+                    Send Message
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1 5h8M5 1l4 4-4 4" stroke="#0a0a0a" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  </button>
+                </div>
+              </form>
+            )}
+            <div className="contact-availability">
+              <p className="contact-availability-text">
+                <span className="contact-availability-highlight">Currently available</span> for freelance projects, consulting, and senior technical roles. Dubai-based and open to remote or hybrid opportunities — wherever great work needs doing.
+              </p>
+            </div>
+          </motion.div>
         </div>
       </div>
-
-      <Sidebar />
-    </main>
+    </div>
   );
 }

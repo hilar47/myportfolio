@@ -1,0 +1,645 @@
+/* ================================================================
+   responsive.css
+   Media queries for the whole site. Kept separate from custom.css /
+   components.css so breakpoint logic lives in one place.
+
+   Breakpoints used:
+     1200px – small laptops
+     1024px – tablets landscape
+     900px  – tablets / narrow laptops
+     768px  – tablets portrait
+     640px  – large phones
+     480px  – phones
+     380px  – small phones
+   ================================================================ */
+
+/* ============================================================
+   Inner-page hamburger menu (About / Awards / Contact / Experience /
+   Projects / Skills). Hidden by default on desktop, where the full
+   .right-menu list is shown instead; swapped in at 768px and below.
+   ============================================================ */
+nav.sticky .inner-nav-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.75rem;
+}
+.inner-nav-menu-btn:hover .nav-menu-label {
+  color: #a2e773;
+}
+.inner-nav-menu-btn:hover .nav-hamburger-bar {
+  background-color: #a2e773;
+}
+
+/* The inner-page mobile menu reuses the exact same .menu-overlay
+   treatment as the home page. That rule only targets <a> tags there
+   (Link renders an anchor); extend it to <button> here since the
+   inner-page menu navigates via router.push instead of next/link. */
+.menu-overlay button {
+  color: transparent !important;
+  -webkit-text-stroke: 1px rgba(232, 228, 220, 0.65);
+}
+.menu-overlay button:hover {
+  color: #fff !important;
+  -webkit-text-stroke: 1px transparent;
+}
+
+/* ============================================================
+   1200px — SMALL LAPTOPS
+   ============================================================ */
+@media (max-width: 1200px) {
+
+  /* Shared page header */
+  .page-title {
+    font-size: 56px;
+  }
+
+  /* Projects grid: 3 -> 2 columns */
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* About sidebar narrower */
+  .about-sidebar {
+    width: 260px;
+  }
+
+  .about-content-inner {
+    padding: 3rem 3rem 8rem;
+  }
+
+  /* Contact grid gap reduce */
+  .contact-grid {
+    gap: 3rem;
+  }
+}
+
+/* ============================================================
+   1024px — TABLETS (landscape)
+   ============================================================ */
+@media (max-width: 1024px) {
+
+  /* ── Home / Hero ─────────────────────────────────────────── */
+  .hero-name {
+    font-size: clamp(2.8rem, 10vw, 6rem);
+  }
+
+  .menu-overlay{
+    gap: 20px;
+    justify-content: flex-start;
+    padding-top: 65px;
+    padding-left: 25px;
+  }
+
+  .stats-container {
+    right: 1.25rem;
+    gap: 1.25rem !important;
+  }
+
+  .stat-number {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+  }
+
+  /* ── Navigation ──────────────────────────────────────────── */
+  .nav-top {
+    padding: 1.25rem 1.5rem 0;
+  }
+
+  .inner-nav {
+    padding: 1.1rem 1.5rem;
+  }
+
+  .right-menu {
+    gap: 1rem !important;
+  }
+
+  .right-menu button {
+    font-size: 12px;
+  }
+
+  /* ── Shared page header ─────────────────────────────────── */
+  .page-title {
+    font-size: 46px;
+  }
+
+  .page-description {
+    font-size: 15px;
+  }
+
+  /* ── About page ──────────────────────────────────────────── */
+  .about-sidebar {
+    width: 220px;
+    padding: 1.5rem 1.5rem 2rem 1.5rem;
+  }
+
+  .about-content-inner {
+    padding: 2.5rem 2rem 6rem;
+  }
+
+  .subsection-card {
+    gap: 2.5rem;
+  }
+
+  /* ── Contact page ────────────────────────────────────────── */
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .contact-inner {
+    padding: 2.5rem 1.5rem 5rem;
+  }
+
+  /* ── Skills page ─────────────────────────────────────────── */
+  .skills-stats-grid,
+  .exp-stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* ── Experience page ─────────────────────────────────────── */
+  .work-entry-grid {
+    grid-template-columns: 1fr 36px 1fr;
+  }
+
+  .edu-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  /* ── Projects page ───────────────────────────────────────── */
+  .featured-slider-frame {
+    height: 380px;
+  }
+
+  .featured-slide-desc {
+    max-width: 100%;
+  }
+
+  /* ── Awards / Testimonials ───────────────────────────────── */
+  .testimonial-card {
+    padding: 2.5rem 2.5rem;
+  }
+
+  .testimonials-heading,
+  .awards-testimonials-heading {
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+  }
+
+  /* Carousel: exactly 3 award cards visible per view down to 768px.
+     Track gap is 1rem, so 3 cards need 2 gaps subtracted. */
+  .award-card {
+    min-width: 0;
+    width: calc((100% - 2rem) / 3);
+  }
+}
+
+/* ============================================================
+   900px — TABLETS / NARROW LAPTOPS
+   ============================================================ */
+@media (max-width: 900px) {
+
+  /* ── About page: switch two-column layout to stacked ───── */
+  .about-page-root {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+  }
+
+  .about-layout {
+    position: relative;
+    inset-inline: auto;
+    bottom: auto;
+    top: 0;
+    flex-direction: column;
+  }
+
+  .about-sidebar {
+    order: 1;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    border-left: none;
+    border-bottom: 1px solid rgba(232, 228, 220, 0.07);
+    padding: 1.25rem 1.5rem 1.25rem;
+  }
+
+  .about-sidebar-identity {
+    margin-bottom: 0;
+  }
+
+  .about-sidebar-timeline,
+  .orb-timeline-root {
+    display: none;
+  }
+
+  .about-sidebar-stat {
+    margin-top: 20px;
+  }
+
+  .about-scroll-area {
+    overflow-y: visible;
+  }
+
+  .about-scroll-fade-top {
+    display: none;
+  }
+
+  .about-content-inner {
+    padding: 2rem 1.5rem 5rem;
+  }
+
+  .nav-top .nav-contact-link,
+  .nav-top .nav-divider {
+    display: none;
+  }
+
+  .subsection-card {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .subsection-card-text,
+  .subsection-card-image-wrap {
+    direction: ltr !important;
+  }
+
+  .about-footer-cta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  /* ── Experience page: timeline collapses to a single column, ─
+     with every entry's card forced onto the right of the spine ── */
+  .work-entry-grid {
+    grid-template-columns: 32px 1fr;
+    min-height: unset;
+    margin-bottom: 20px;
+  }
+
+  /* The centre "spine" column (dot + connector) is always the
+     2nd of the three direct children; keep it pinned to column 1. */
+  .work-entry-grid > .work-entry-spine {
+    grid-column: 1;
+  }
+
+  /* The other two direct children (left slot, right slot) both get
+     pushed into the single content column, stacked on top of each
+     other — only one of them actually holds a card per entry, the
+     other just holds the stray period label, hidden below. */
+  .work-entry-grid > div:nth-child(1),
+  .work-entry-grid > div:nth-child(3) {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    justify-content: flex-start !important;
+    padding-left: 1.5rem !important;
+    padding-right: 0 !important;
+  }
+
+  /* Whichever slot does NOT contain the actual entry card only has
+     the leftover period label in it on desktop — hide that one so
+     every entry shows its real card on the right, every time. */
+  .work-entry-grid > div:nth-child(1):not(:has(.work-entry-card-wrap)),
+  .work-entry-grid > div:nth-child(3):not(:has(.work-entry-card-wrap)) {
+    display: none;
+  }
+
+  .work-entry-card-wrap,
+  .work-entry-card-wrap--right {
+    max-width: 100%;
+    text-align: left;
+  }
+
+  .work-entry-card-wrap--right {
+    display: block;
+  }
+
+  /* The card inside .work-entry-card-wrap--right is rendered with
+     align="right", which sets inline text-align / bar-position /
+     tag-alignment styles. Inline styles beat plain CSS, so those
+     have to be overridden with !important to actually match the
+     plain (align="left") card once both share one column. */
+  .work-entry-card-wrap--right .entry-card {
+    text-align: left !important;
+  }
+
+  .work-entry-card-wrap--right .entry-card-bar {
+    left: 0 !important;
+    right: auto !important;
+  }
+
+  .work-entry-card-wrap--right .entry-card-tags {
+    justify-content: flex-start !important;
+  }
+
+  .timeline-stem {
+    left: 16px;
+    transform: none;
+  }
+
+  .timeline-stem-tip {
+    left: 16px;
+  }
+}
+
+/* ============================================================
+   768px — TABLETS (portrait)
+   ============================================================ */
+@media (max-width: 768px) {
+
+  body {
+    cursor: auto;
+  }
+
+  a,
+  button,
+  input,
+  textarea {
+    cursor: pointer !important;
+  }
+
+  .cursor-dot,
+  .cursor-hud {
+    display: none;
+  }
+
+  /* ── Home / Hero ─────────────────────────────────────────── */
+  .nav-top {
+    padding: 1rem 1.25rem 0;
+    flex-wrap: wrap;
+  }
+
+  .hero-greeting {
+    font-size: 26px;
+  }
+
+  .hero-name {
+    font-size: clamp(2.4rem, 12vw, 4rem);
+    white-space: normal;
+  }
+
+  .typewriter-prefix,
+  .typewriter-role {
+    font-size: clamp(0.75rem, 3vw, 1rem);
+  }
+
+  /* City timeline: shrink and hide connectors on small screens */
+  .city-connector {
+    width: 1.75rem;
+    margin: -0.75rem 0.25rem 0;
+  }
+
+  .about-section-header{
+    margin-bottom: 2rem;
+  }
+  .about-subsections{
+    gap: 3rem;
+  }
+
+  .build-great-nav{
+    flex-direction: column;
+    width: 100%;
+  }
+
+  /* Stats: reposition under hero content instead of vertically centred */
+  .stats-container {
+    position: absolute;
+    top: auto !important;
+    bottom: 13rem;
+    right: 1.25rem !important;
+    gap: 1rem !important;
+    text-align: right;
+  }
+
+  .stat-number {
+    font-size: clamp(1.2rem, 8vw, 2rem);
+  }
+
+  .stat-label {
+    font-size: 11px;
+  }
+
+  .menu-overlay a,
+  .menu-overlay div a,
+  .menu-overlay div button {
+    font-size: clamp(2rem, 12vw, 3rem) !important;
+  }
+
+  /* ── Inner nav ───────────────────────────────────────────── */
+  .inner-nav {
+    padding: 1rem 1.25rem;
+  }
+
+  .inner-nav-logo {
+    font-size: 0.95rem;
+  }
+
+  nav.sticky {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 1.1rem 1.25rem 0.9rem;
+  }
+
+  .right-menu {
+    display: none !important;
+  }
+
+  nav.sticky .inner-nav-menu-btn {
+    display: flex;
+  }
+
+  /* ── Shared page header ──────────────────────────────────── */
+  .page-title {
+    font-size: 36px;
+    line-height: 1.2;
+  }
+
+  .page-description {
+    font-size: 14px;
+    margin-top: 0.75rem;
+  }
+
+  /* ── Contact page ────────────────────────────────────────── */
+  .contact-inner {
+    padding: 2rem 1.25rem 4rem;
+  }
+
+  .contact-hero {
+    margin-bottom: 3rem;
+  }
+
+  .contact-form-row {
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+
+  .contact-detail-link,
+  .contact-detail-text {
+    font-size: clamp(1rem, 4vw, 1.3rem);
+  }
+
+  .contact-cta-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .contact-footer {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 1.25rem;
+    text-align: center;
+  }
+
+  .social-links-container{
+    padding-bottom: 20px!important;
+  }
+  .hilario-name{
+    padding-bottom: 70px!important;
+  }
+
+  /* ── Skills page ─────────────────────────────────────────── */
+  .skills-inner {
+    padding: 1.5rem 1.25rem 4rem;
+  }
+
+  .skills-cloud-wrap {
+    height: clamp(260px, 45vh, 400px);
+  }
+
+  .skills-stats-grid,
+  .exp-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .exp-stat-num,
+  .skill-numbers div {
+    font-size: clamp(1.8rem, 8vw, 2.5rem);
+  }
+
+  .skill-numbers {
+    padding: 1.25rem;
+  }
+
+  .exp-stat-cell {
+    padding: 1.25rem;
+  }
+
+  /* ── Projects page ───────────────────────────────────────── */
+  .projects-inner {
+    padding: 1.5rem 1.25rem 4rem;
+  }
+
+  .projects-hero-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-slider-frame {
+    height: 480px;
+  }
+
+  .featured-slide-content {
+    padding: 1.5rem;
+  }
+
+  .featured-slide-title {
+    font-size: clamp(1.6rem, 7vw, 2.5rem);
+  }
+
+  .featured-slide-desc {
+    font-size: 13px;
+    max-width: 100%;
+  }
+
+  .featured-slide-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .featured-controls {
+    justify-content: space-between;
+  }
+
+  .project-card {
+    height: 260px;
+  }
+
+  /* ── Experience page ─────────────────────────────────────── */
+  .experience-inner {
+    padding: 1.5rem 1.25rem 4rem;
+  }
+
+  .edu-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .entry-card {
+    padding: 1.1rem;
+  }
+
+  /* ── Awards page ─────────────────────────────────────────── */
+  .awards-inner {
+    padding: 2rem 1.25rem 4rem;
+  }
+
+  .award-card {
+    min-width: 0;
+    width: calc((100% - 1rem) / 2);
+    padding: 1.5rem 1.25rem;
+  }
+
+  .testimonial-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .testimonial-quote-mark {
+    font-size: 5rem;
+  }
+
+  .testimonial-blockquote {
+    max-width: 100%;
+  }
+
+  .testimonials-controls {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+
+
+/* ============================================================
+   550px — PHONES: awards carousel shows one card at a time
+   ============================================================ */
+@media (max-width: 550px) {
+  .award-card {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+/* ============================================================
+   Fine pointer / touch devices — disable custom cursor entirely
+   ============================================================ */
+@media (hover: none) and (pointer: coarse) {
+  body,
+  a,
+  button {
+    cursor: auto !important;
+  }
+
+  .cursor-dot,
+  .cursor-hud {
+    display: none !important;
+  }
+}

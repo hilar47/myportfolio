@@ -1,0 +1,161 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "./custom.css";
+@import "./components.css";
+
+/* ─── Hello Paris local font faces ─────────────────────────────────── */
+/* (Google Fonts loaded via next/font in layout.tsx)                    */
+@font-face {
+  font-family: "Hello Paris";
+  src: url("/fonts/paris-font/HelloParisSansRegular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Hello Paris";
+  src: url("/fonts/paris-font/HelloParisSansMedium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Hello Paris";
+  src: url("/fonts/paris-font/HelloParisSansBold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Hello Paris";
+  src: url("/fonts/paris-font/HelloParisSansLight.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Hello Paris";
+  src: url("/fonts/paris-font/HelloParisSansExtraLight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─── CSS Custom Properties ─────────────────────────────────────────── */
+:root {
+  --font-size: 16px;
+  --background: #0d0d0d;
+  --foreground: #e8e4dc;
+  --card: #161616;
+  --card-foreground: #e8e4dc;
+  --popover: #161616;
+  --popover-foreground: #e8e4dc;
+  --primary: #a2e773;
+  --primary-foreground: #0d0d0d;
+  --secondary: #1e1e1e;
+  --secondary-foreground: #e8e4dc;
+  --muted: #1a1a1a;
+  --muted-foreground: #666560;
+  --accent: #c8b8a2;
+  --accent-foreground: #0d0d0d;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(232, 228, 220, 0.1);
+  --input: rgba(232, 228, 220, 0.06);
+  --ring: #c8b8a2;
+  --radius: 0.25rem;
+
+  --color-green: #a2e773;
+  --color-purple: #7877c6;
+  --color-cream: rgb(232, 228, 220);
+  --color-bg: #0a0a0a;
+  --font-secondary: var(--font-display);
+  --font-paris: "Hello Paris", serif;
+}
+
+/* ─── Tailwind v4 theme mapping ─────────────────────────────────────── */
+/*
+  --font-display / --font-body / --font-serif are injected by next/font
+  onto <html> as CSS variables. We expose them here so Tailwind generates
+  font-display, font-body, font-serif utility classes.
+*/
+@theme inline {
+  --font-display: var(--font-display);
+  --font-body:    var(--font-body);
+  --font-serif:   var(--font-serif);
+
+  --color-background:        var(--background);
+  --color-foreground:        var(--foreground);
+  --color-card:              var(--card);
+  --color-card-foreground:   var(--card-foreground);
+  --color-primary:           var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary:         var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted:             var(--muted);
+  --color-muted-foreground:  var(--muted-foreground);
+  --color-accent:            var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border:            var(--border);
+  --color-ring:              var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+}
+
+/* ─── Base Layer ────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
+  }
+
+  ::selection {
+    background: rgba(124, 58, 237, 0.4);
+    color: #ffffff;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: var(--font-size);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-body);
+    /* cursor: none; */
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  input,
+  textarea {
+    cursor: text;
+  }
+
+  a,
+  button {
+    /* cursor: none; */
+    cursor: pointer;
+  }
+  p{
+    font-family: var(--font-body);
+  }
+}
+
+
+@import "./responsive.css";

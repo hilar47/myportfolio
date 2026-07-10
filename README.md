@@ -1,72 +1,81 @@
-# Hilario Goes Portfolio — Next.js 15
+# Hilario Goes — Portfolio (Next.js 15 Refactor)
 
-My portfolio website, built with
-**Next.js 15 (App Router)**, **TypeScript**, and **Tailwind CSS**.
+A full refactor of the original Vite + React portfolio into a production-ready **Next.js 15** project with **Tailwind CSS v4**, proper routing, and a clean CSS architecture.
 
----
+## Tech Stack
 
-## 📁 Folder Structure
+- **Next.js 15** (App Router) — file-system routing, server components, image optimisation
+- **React 19** — latest React with `"use client"` where interactivity is needed
+- **TypeScript** — strict mode throughout
+- **Tailwind CSS v4** — utility-first with `@tailwindcss/postcss`
+- **Motion (Framer Motion v12)** — animations and transitions
+- **Lucide React** — icons
+
+## Project Structure
 
 ```
-portfolio/
-├── app/
-│   ├── layout.tsx          ← Root layout (fonts, metadata)
-│   ├── globals.css         ← Tailwind base + CSS variables
-│   ├── page.tsx            ← Home page
-│   ├── about/
-│   │   └── page.tsx        ← About page with skill bars
-│   ├── awards/
-│   │   └── page.tsx        ← All my awards and recoginitions
-│   ├── work/
-│   │   └── page.tsx        ← Portfolio / work page
-│   ├── contact/
-│   │   └── page.tsx        ← Contact me
-│   └── education/
-│       └── page.tsx        ← My Qualifications and work exprience
+├── app/                    # Next.js App Router pages
+│   ├── layout.tsx          # Root layout with metadata
+│   ├── page.tsx            # Home / Hero page
+│   ├── about/page.tsx
+│   ├── skills/page.tsx
+│   ├── projects/page.tsx
+│   ├── experience/page.tsx
+│   ├── awards/page.tsx
+│   └── contact/page.tsx
+│
 ├── components/
-│   └── AwardsSlider.tsx         ← Component for awards 
-│   └── components.css         ← Component custom styling
-│   └── ContactForm.tsx         ← Component for contact form 
-│   └── CursorTrail.tsx         ← Component for cutsor animation (disabled for now) 
-│   └── EducationTimeline.tsx         ← Component for education 
-│   └── ExperienceTimeline.tsx         ← Component for experience
-│   └── ProjectSlide.tsx         ← Component for projects done
-│   └── Sidebar.tsx         ← Sidebar menu component
-│   └── SkillsMarquee.tsx         ← Component for my skills & technologies
-│   └── SocialBar.tsx         ← Component for social links
-│   └── StatsCounter.tsx         ← Component for my stats
-│   └── TestimonialsSlider.tsx         ← Component for testimonials
-│   └── TimelineColumn.tsx         ← Component for timeline
-│   └── TypeWriter.tsx         ← Component for typing animation
-├── next.config.ts
-├── tailwind.config.ts
-├── tsconfig.json
-├── postcss.config.js
-└── package.json
+│   ├── home/               # Home-page-specific components
+│   │   ├── SolarSystemCanvas.tsx
+│   │   ├── PlexusCanvas.tsx
+│   │   └── HeroTypewriter.tsx
+│   ├── layout/
+│   │   └── InnerNav.tsx    # Shared nav for inner pages
+│   └── ui/
+│       ├── CustomCursor.tsx
+│       └── GrainOverlay.tsx
+│
+├── lib/
+│   ├── constants.ts        # All data (projects, awards, skills, etc.)
+│   └── utils.ts            # cn() utility
+│
+├── styles/
+│   ├── globals.css         # Tailwind imports + base layer + fonts
+│   ├── custom.css          # Page-level custom styles
+│   └── components.css      # Reusable component styles
+│
+└── public/
+    ├── fonts/paris-font/   # Hello Paris Sans font files
+    └── files/              # Place HilarioGoes-Resume.pdf here
 ```
 
----
+## CSS Architecture
 
+| File | Purpose |
+|------|---------|
+| `styles/globals.css` | Tailwind v4 entry, `@font-face`, CSS custom properties, `@layer base` |
+| `styles/custom.css` | Page-level styles (hero, about, contact, etc.) that extend Tailwind |
+| `styles/components.css` | Reusable component patterns (cursor, nav, cards, tags, etc.) |
 
-## 🎨 Design Tokens
+Zero inline styles — everything is in Tailwind classes or the two CSS files.
 
-| Token          | Value      |
-|----------------|------------|
-| Background     | `#111111`  |
-| Accent Red     | `#cc0000`  |
-| Bright Red     | `#ff1a1a`  |
-| Text           | `#ffffff`  |
-| Muted text     | `#9ca3af`  |
-| Card surface   | `#1a1a1a`  |
-| Heading font   | Bebas Neue |
-| Body font      | Barlow     |
+## Getting Started
 
----
+```bash
+npm install
+npm run dev
+```
 
+Then open [http://localhost:3000](http://localhost:3000).
 
-## 📝 Notes
+## Adding the Resume PDF
 
-- The `"use client"` directive is required on pages that use `useState`
-  or browser APIs.
-- Fonts load from Google Fonts via `next/font` — no extra CSS needed.
-- The sidebar uses `usePathname()` to highlight the active route.
+Place `HilarioGoes-Resume.pdf` in `public/files/` so the Download CV button works.
+
+## Deployment
+
+Deploy to Vercel by linking the repository. Set `hilariogoes.com` as the custom domain.
+
+```bash
+npm run build   # local production build check
+```

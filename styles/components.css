@@ -1,0 +1,545 @@
+/* ================================================================
+   components.css
+   Reusable component styles. Use these when Tailwind utilities
+   alone are insufficient (e.g. complex pseudo-selectors, canvas
+   overlays, animation keyframes, or deeply nested selectors).
+   ================================================================ */
+
+/* ─── Custom Cursor ─────────────────────────────────────────────────── */
+
+.cursor-dot {
+  width: 4px;
+  height: 4px;
+  background: #a2e773;
+  pointer-events: none;
+  position: fixed;
+  border-radius: 9999px;
+  z-index: 10001;
+  will-change: left, top;
+}
+
+.cursor-hud {
+  width: 44px;
+  height: 44px;
+  pointer-events: none;
+  position: fixed;
+  z-index: 10000;
+  will-change: left, top;
+}
+
+.cursor-hud-outer {
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(162, 231, 115, 0.3);
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.cursor-hud-inner {
+  width: 22px;
+  height: 22px;
+  border: 1px solid rgba(162, 231, 115, 0.7);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* N/S/E/W tick marks */
+.hud-tick {
+  position: absolute;
+  background: #a2e773;
+  opacity: 0.7;
+}
+.hud-tick.top    { width: 1px; height: 6px; top: 0;    left: 50%; transform: translateX(-50%); }
+.hud-tick.bottom { width: 1px; height: 6px; bottom: 0; left: 50%; transform: translateX(-50%); }
+.hud-tick.left   { height: 1px; width: 6px; left: 0;   top: 50%;  transform: translateY(-50%); }
+.hud-tick.right  { height: 1px; width: 6px; right: 0;  top: 50%;  transform: translateY(-50%); }
+
+/* Sweep line */
+.hud-scan {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(162, 231, 115, 0.8) 50%, transparent 100%);
+  left: 0;
+  animation: hud-sweep 2s ease-in-out infinite;
+}
+
+@keyframes hud-sweep {
+  0%   { top: 0%;   opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* ─── Grain Overlay ─────────────────────────────────────────────────── */
+
+.grain-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  opacity: 0.22;
+  mix-blend-mode: soft-light;
+}
+
+/* ─── Navigation ────────────────────────────────────────────────────── */
+
+nav.sticky{
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(12px);
+  transition: background 0.3s;
+}
+nav.sticky button{
+  background: none;
+  border: none;
+  /* cursor: none; */
+  display: flex;
+  align-items: center;
+  font-family: var(--font-body);
+  gap: 0.5rem;
+}
+nav.sticky button span{
+  letter-spacing: 0.25em;
+  color: rgba(232, 228, 220, 0.6);
+  text-transform: uppercase;
+  font-size: 15px;
+  margin-top: -2px;
+}
+nav.sticky button span + span{
+  font-size: 14px;
+  margin-top: 0;
+}
+nav.sticky button:hover span{
+  color: #a2e773;
+}
+
+.nav-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem 0;
+}
+
+.nav-menu-btn {
+  background: none;
+  border: none;
+  /* cursor: none; */
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+.nav-menu-btn:hover span{
+   color: #a2e773;
+}
+.nav-menu-btn:hover span.nav-hamburger-bar{
+   background-color: #a2e773;
+}
+
+.nav-menu-label {
+  font-family: var(--font-body);
+  font-size: 15px;
+  letter-spacing: 0.3em;
+  color: rgba(232, 228, 220, 0.85);
+  text-transform: uppercase;
+}
+
+.nav-hamburger-bar {
+  display: block;
+  height: 1px;
+  background: rgba(232, 228, 220, 0.8);
+}
+
+.nav-divider {
+  color: rgba(232, 228, 220, 0.2);
+  font-size: 0.85rem;
+}
+
+.nav-contact-link {
+  font-family: var(--font-body);
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  color: rgba(232, 228, 220, 0.75);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-contact-link:hover {
+  color: #a2e773;
+}
+
+/* ─── Shared Inner-Page NavBar ──────────────────────────────────────── */
+
+.inner-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2.5rem;
+  transition: background 0.3s, backdrop-filter 0.3s, border-color 0.3s;
+}
+
+.inner-nav.scrolled {
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.inner-nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: rgb(232, 228, 220);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+
+.inner-nav-link {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  color: rgba(232, 228, 220, 0.5);
+  text-decoration: none;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.inner-nav-link:hover,
+.inner-nav-link.active {
+  color: rgb(232, 228, 220);
+}
+
+.right-menu button{
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(232, 228, 220, 0.5);
+  padding-bottom: 2px;
+  transition: color 0.2s;
+  font-family: var(--font-body);
+}
+.right-menu button:hover,
+.right-menu button.active{
+  color: rgb(162, 231, 115);
+}
+
+
+/* ─── Hero Name ─────────────────────────────────────────────────────── */
+
+.hero-greeting {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 40px;
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(232, 228, 220, 0.6);
+  letter-spacing: 0.01em;
+  margin-bottom: 0.2rem;
+  line-height: 1;
+}
+
+.hero-name {
+  font-family: var(--font-serif);
+  font-size: clamp(3.8rem, 8vw, 9rem);
+  font-weight: 600;
+  line-height: 0.88;
+  letter-spacing: 0.01em;
+  color: rgb(232, 228, 220);
+  white-space: nowrap;
+  margin-bottom: 0.4rem;
+}
+
+/* ─── Typewriter ────────────────────────────────────────────────────── */
+
+.typewriter-prefix {
+  font-family: var(--font-body);
+  font-size: clamp(0.85rem, 1.4vw, 1.1rem);
+  font-weight: 300;
+  color: rgba(232, 228, 220, 0.45);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.typewriter-role {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.8vw, 1.45rem);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #a2e773;
+}
+
+/* ─── Section Page Shell ────────────────────────────────────────────── */
+
+.page-shell {
+  min-height: 100vh;
+  background: rgb(10, 10, 10);
+  color: rgb(232, 228, 220);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ─── Section Headings ──────────────────────────────────────────────── */
+
+.section-eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(232, 228, 220, 0.35);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: rgb(232, 228, 220);
+}
+
+.section-accent {
+  color: #a2e773;
+}
+
+/* ─── Tag / Pill ────────────────────────────────────────────────────── */
+
+.tech-tag {
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(232, 228, 220, 0.55);
+  border: 1px solid rgba(232, 228, 220, 0.12);
+  padding: 0.25rem 0.65rem;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.tech-tag:hover {
+  border-color: rgba(162, 231, 115, 0.4);
+  color: #a2e773;
+}
+
+/* ─── Back Button ───────────────────────────────────────────────────── */
+
+.btn-back {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(232, 228, 220, 0.5);
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.2s;
+  padding: 0;
+}
+
+.btn-back:hover {
+  color: rgb(232, 228, 220);
+}
+
+/* ─── OrbTimeline (About) ───────────────────────────────────────────── */
+
+.orb-section-label {
+  font-family: var(--font-display);
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+.orb-section-caption {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: rgba(232, 228, 220, 0.35);
+}
+
+/* ─── Skill Group Card ──────────────────────────────────────────────── */
+
+.skill-group-card {
+  border: 1px solid rgba(232, 228, 220, 0.08);
+  background: rgba(22, 22, 22, 0.6);
+  padding: 0.65rem 0.85rem;
+  transition: border-color 0.3s;
+}
+
+.skill-group-card:hover {
+  border-color: rgba(232, 228, 220, 0.18);
+}
+
+.skill-group-card img{
+  max-height: 22px;
+}
+
+.skills-tabs button{
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: 1px solid rgba(232, 228, 220, 0.4);
+    color: rgba(232, 228, 220, 1);
+    padding: 0.28rem 0.75rem;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    /* cursor: none; */
+}
+.skills-tabs button:hover{
+  border:1px solid #a2e773!important;
+  color: #a2e773;
+}
+
+.skill-numbers{
+    padding: 2rem;
+    background: rgba(232, 228, 220, 0.016);
+    border-right: 1px solid rgba(232, 228, 220, 0.08);
+    text-align: center;
+}
+.skill-numbers div{
+  font-size: 70px;
+  font-weight: 800;
+  color: rgb(162, 231, 115);
+  line-height: 1;
+  font-family: var(--font-secondary);
+}
+.skill-numbers span{
+    font-size: 15px;
+    color: rgba(232, 228, 220, 1);
+    font-family: var(--font-body);
+}
+
+/* ─── Experience Entry ──────────────────────────────────────────────── */
+
+.exp-entry-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  flex-shrink: 0;
+  margin-top: 6px;
+  box-shadow: 0 0 8px currentColor;
+}
+
+/* ─── Award Card ────────────────────────────────────────────────────── */
+
+.award-year-watermark {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3vw, 3rem);
+  font-weight: 700;
+  color: rgba(232, 228, 220, 0.07);
+  transition: color 0.4s;
+  pointer-events: none;
+}
+
+.award-card:hover .award-year-watermark {
+  color: currentColor;
+  opacity: 0.25;
+}
+
+/* ─── Testimonial Card ──────────────────────────────────────────────── */
+
+.testimonial-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  background: rgba(162, 231, 115, 0.15);
+  border: 1px solid rgba(162, 231, 115, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #a2e773;
+  flex-shrink: 0;
+}
+
+/* ─── Canvas Layers ─────────────────────────────────────────────────── */
+
+.canvas-solar {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+.canvas-plexus {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.5;
+}
+
+/* ─── Scroll Snap Container ─────────────────────────────────────────── */
+
+.scroll-snap-x {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ─── Reduced Motion ────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .canvas-solar,
+  .canvas-plexus {
+    display: none;
+  }
+}
+
+/* Form */
+form{}
+form label{
+  display: block;
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(232, 228, 220, 0.6);
+  margin-bottom: 0.5rem;
+  transition: color 0.2s;
+}
+form input,
+form textarea{
+  width: 100%;
+  background: transparent;
+  border-width: medium medium 1px;
+  border-style: none none solid;
+  border-color: currentcolor currentcolor rgba(232, 228, 220, 0.12);
+  border-image: initial;
+  color: rgb(232, 228, 220);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  padding: 0.8rem 0px;
+  outline: none;
+  transition: border-color 0.2s;
+  /* cursor: none; */
+}
