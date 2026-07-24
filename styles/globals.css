@@ -69,8 +69,18 @@
   --color-purple: #7877c6;
   --color-cream: rgb(232, 228, 220);
   --color-bg: #0a0a0a;
+  --altColor: #0a0a0a;
   --font-secondary: var(--font-display);
   --font-paris: "Hello Paris", serif;
+  --projectBrightness1: brightness(0.45) saturate(0.8);
+  --projectBrightness2: brightness(0.28) saturate(0.4) grayscale(30%);
+
+  /* RGB channels only (no alpha) for use inside inline JSX styles
+     like rgba(var(--fg-rgb), 0.3) — lets state-driven inline colors
+     (active/hover/disabled variants scattered across page files)
+     re-theme via CSS instead of needing per-instance JS logic. */
+  --fg-rgb: 232, 228, 220;
+  --bg-rgb: 10, 10, 10;
 }
 
 /* ─── Tailwind v4 theme mapping ─────────────────────────────────────── */
@@ -159,3 +169,4 @@
 
 
 @import "./responsive.css";
+@import "./theme-light.css";

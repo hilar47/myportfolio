@@ -49,11 +49,11 @@ function EntryCard({ entry, align }: { entry: typeof WORK[0]; align: "left" | "r
     <motion.div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      animate={{ borderColor: hovered ? `${entry.color}50` : "rgba(232,228,220,0.1)" }}
+      animate={{ borderColor: hovered ? `${entry.color}50` : "rgba(var(--fg-rgb),0.1)" }}
       transition={{ duration: 0.2 }}
       className="entry-card"
       style={{
-        background: hovered ? "rgba(232,228,220,0.03)" : "rgba(232,228,220,0.015)",
+        background: hovered ? "rgba(var(--fg-rgb),0.03)" : "rgba(var(--fg-rgb),0.015)",
         textAlign: align,
       }}
     >
@@ -138,8 +138,8 @@ function WorkEntry({ entry, index, isLast }: { entry: typeof WORK[0]; index: num
           transition={{ duration: 0.35, delay: 0.1 }}
           className="work-entry-dot"
           style={{
-            border: `2px solid ${entry.color}`,
-            boxShadow: `0 0 12px ${entry.color}60`,
+            border: `2px solid var(--primary)`,
+            boxShadow: `0 0 12px var(--primary)`,
           }}
         />
         {!isLast && <div className="flex-1" />}
@@ -248,7 +248,7 @@ export default function ExperiencePage() {
   const timelineRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="experience-page-root">
+    <div className="experience-page-root inner-page-root">
       {/* <CustomCursor /> */}
       <InnerNav />
 

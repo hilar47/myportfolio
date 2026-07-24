@@ -144,6 +144,14 @@
 
 /* ─── Vignette Overlays ─────────────────────────────────────────────── */
 
+.home-root-bg {
+  background-color: #0a0a0a;
+}
+
+.home-bg-gradient {
+  background: radial-gradient(ellipse 80% 80% at 50% -20%, #7877c64d, #fff0), rgb(10, 10, 10);
+}
+
 .vignette-sides {
   background: linear-gradient(
     to right,
@@ -1536,6 +1544,10 @@
   cursor: pointer;
   transition: color 0.2s, border-color 0.2s;
 }
+.about-footer-nav-btn:hover{
+  color: #a2e773;
+  border-color: #a2e773;
+}
 
 
 /* ─── Work / Projects Page (refactored from inline styles) ──────────── */
@@ -1724,6 +1736,12 @@
   border: none;
   /* cursor: none; */
   padding: 0;
+}
+.flex.items-center.gap-6.hidden + .flex {
+
+}
+.flex.items-center.gap-6.hidden + .flex .theme-toggle-btn {
+  display: none;
 }
 
 /* Dot bar — width and background are active-state driven, kept inline */

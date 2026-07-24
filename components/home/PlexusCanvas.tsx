@@ -11,6 +11,20 @@ export default function PlexusCanvas() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    /* Canvas can't read CSS at all, so it needs its own theme-aware
+       palette. Light mode uses the same primary red as the Skills
+       tech cloud / SolarSystemCanvas (#DA000C / 218,0,12) instead of
+       gray, and line opacity is boosted since the pale blue-gray
+       alpha values were calibrated for a dark backdrop and read as
+       nearly invisible on white. isLightRef is updated live by the
+       "themechange" event ThemeToggle fires, so toggling mid-session
+       recolors it immediately instead of needing a reload. */
+    const isLightRef = { current: document.documentElement.getAttribute("data-theme") === "light" };
+    const onThemeChange = () => {
+      isLightRef.current = document.documentElement.getAttribute("data-theme") === "light";
+    };
+    window.addEventListener("themechange", onThemeChange);
+
     let animId: number;
     const PARTICLE_COUNT = 55;
     const MAX_DIST = 160;
@@ -53,7 +67,9 @@ export default function PlexusCanvas() {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(180, 190, 220, ${alpha})`;
+            ctx.strokeStyle = isLightRef.current
+              ? `rgba(218, 0, 12, ${Math.min(1, alpha * 3.2)})`
+              : `rgba(180, 190, 220, ${alpha})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
@@ -63,7 +79,9 @@ export default function PlexusCanvas() {
       for (const p of particles) {
         ctx.beginPath();
         ctx.arc(p.x, p.y, DOT_RADIUS, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(200, 210, 235, 0.3)";
+        ctx.fillStyle = isLightRef.current
+          ? "rgba(218, 0, 12, 0.55)"
+          : "rgba(200, 210, 235, 0.3)";
         ctx.fill();
       }
 
@@ -79,6 +97,7 @@ export default function PlexusCanvas() {
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", onResize);
+      window.removeEventListener("themechange", onThemeChange);
     };
   }, []);
 

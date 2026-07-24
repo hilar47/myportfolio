@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Linkedin, Github, Instagram, Facebook } from "lucide-react";
 // import CustomCursor from "@/components/ui/CustomCursor";
 import GrainOverlay from "@/components/ui/GrainOverlay";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 import SolarSystemCanvas from "@/components/home/SolarSystemCanvas";
 import PlexusCanvas from "@/components/home/PlexusCanvas";
 import HeroTypewriter from "@/components/home/HeroTypewriter";
@@ -34,7 +35,7 @@ export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="relative w-full h-screen overflow-hidden bg-[rgb(10,10,10)]">
+    <div className="relative w-full h-screen overflow-hidden home-root-bg">
       {/* Background gradient */}
       <div
         className="absolute inset-0 z-0 pointer-events-none"
@@ -43,12 +44,7 @@ export default function HomePage() {
           //   "radial-gradient(ellipse 80% 80% at 50% -20%, #7877c64d, #fff0), rgb(10,10,10, 0.8)", zIndex: 1,
         }}
       />
-      <div
-        className="absolute inset-0 z-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 80% at 50% -20%, #7877c64d, #fff0), rgb(10,10,10)",
-        }} />
+      <div className="home-bg-gradient absolute inset-0 z-0 pointer-events-none" />
 
       <SolarSystemCanvas />
       <PlexusCanvas />
@@ -63,7 +59,7 @@ export default function HomePage() {
       {/* ── TOP NAV ── */}
       <nav className="nav-top">
         <div
-          className={`flex items-center gap-6 ${menuOpen ? "hidden" : "flex"}`}
+          className={`flex items-center gap-6 ${menuOpen ? "invisible" : "flex"}`}
         >
           <a
             href="/files/HilarioGoes-Resume.pdf"
@@ -91,24 +87,27 @@ export default function HomePage() {
           </a>
         </div>
 
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="nav-menu-btn"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-        >
-          <span className="nav-menu-label">{menuOpen ? "Close" : "Menu"}</span>
-          {!menuOpen && (
-            <div className="flex flex-col gap-[5px]">
-              {[false, true, false].map((short, i) => (
-                <span
-                  key={i}
-                  className="nav-hamburger-bar"
-                  style={{ width: short ? "0.75rem" : "1.25rem" }}
-                />
-              ))}
-            </div>
-          )}
-        </button>
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="nav-menu-btn"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+          >
+            <span className="nav-menu-label">{menuOpen ? "Close" : "Menu"}</span>
+            {!menuOpen && (
+              <div className="flex flex-col gap-[5px]">
+                {[false, true, false].map((short, i) => (
+                  <span
+                    key={i}
+                    className="nav-hamburger-bar"
+                    style={{ width: short ? "0.75rem" : "1.25rem" }}
+                  />
+                ))}
+              </div>
+            )}
+          </button>
+        </div>
       </nav>
 
       {/* ── CITY TIMELINE ── */}
@@ -121,14 +120,14 @@ export default function HomePage() {
       >
         {CITY_STOPS.map((stop, i) => (
           <div key={stop.city} className="flex items-center">
-            <div className="flex flex-col items-center gap-1">
+            <div className="flex flex-col items-center gap-1 city-stop">
               <div
                 className="rounded-full"
                 style={{
                   width: stop.active ? 8 : 5,
                   height: stop.active ? 8 : 5,
-                  background: stop.active ? "#a2e773" : "rgba(232,228,220,0.6)",
-                  boxShadow: stop.active ? "0 0 9px #a2e77388" : "none",
+                  background: stop.active ? "var(--primary)" : "rgba(var(--fg-rgb),0.6)",
+                  boxShadow: stop.active ? "0 0 9px var(--primary)" : "none",
                 }}
               />
               <span
@@ -136,7 +135,7 @@ export default function HomePage() {
                 style={{
                   fontWeight: stop.active ? 700 : 500,
                   letterSpacing: "0.22em",
-                  color: stop.active ? "#a2e773" : "rgba(232,228,220,0.8)",
+                  color: stop.active ? "var(--primary)" : "rgba(var(--fg-rgb),0.8)",
                   textUnderlineOffset: "3px",
                 }}
               >
@@ -147,8 +146,8 @@ export default function HomePage() {
                 style={{
                   letterSpacing: "0.08em",
                   color: stop.active
-                    ? "rgba(162,231,115,0.65)"
-                    : "rgba(232,228,220,0.45)",
+                    ? "var(--primary)"
+                    : "rgba(var(--fg-rgb),0.8)",
                 }}
               >
                 {stop.years}
@@ -220,7 +219,7 @@ export default function HomePage() {
             }}
             onMouseLeave={(e) => {
               (e.currentTarget as HTMLElement).style.color =
-                "rgba(232,228,220,0.45)";
+                "rgba(var(--fg-rgb),0.45)";
             }}
           >
             <SocialIcon

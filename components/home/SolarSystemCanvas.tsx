@@ -3,9 +3,7 @@
 import { useEffect, useRef } from "react";
 import { SOLAR_TECHS, RING_SLOTS } from "@/lib/constants";
 
-const C_GREEN = { r: 162, g: 231, b: 115 };
-const C_PURPLE = { r: 160, g: 140, b: 255 };
-type Col = typeof C_GREEN;
+type Col = { r: number; g: number; b: number };
 
 export default function SolarSystemCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -21,6 +19,34 @@ export default function SolarSystemCanvas() {
     const displayFont =
       getComputedStyle(document.documentElement).getPropertyValue("--font-display").trim() ||
       "sans-serif";
+
+    /* Same reasoning as PlexusCanvas: canvas can't read CSS, so the
+       accent palette has to be swapped in JS. isLightRef updates
+       live off the "themechange" event so toggling mid-session
+       recolors immediately.
+       Light theme: every technology (both the green and purple
+       categories, plus the white highlights) renders in the same
+       primary red used on the Skills tech cloud (#DA000C / 218,0,12)
+       — no gray. Line strokes (orbit paths, connector lines, rings)
+       were calibrated at low alpha for a dark backdrop and read as
+       nearly invisible on white, so la() boosts their opacity in
+       light mode specifically.
+       Teal and the pale-blue comet trail keep their own color in
+       both themes — only their line visibility is boosted. */
+    const isLightRef = { current: document.documentElement.getAttribute("data-theme") === "light" };
+    const onThemeChange = () => {
+      isLightRef.current = document.documentElement.getAttribute("data-theme") === "light";
+    };
+    window.addEventListener("themechange", onThemeChange);
+    const RED = "218,0,12";
+    const hiC       = () => (isLightRef.current ? RED : "255,255,255");
+    const greenStr  = () => (isLightRef.current ? RED : "162,231,115");
+    const purpleStr = () => (isLightRef.current ? RED : "140,130,220");
+    const C_GREEN  = (): Col => (isLightRef.current ? { r: 218, g: 0, b: 12 } : { r: 162, g: 231, b: 115 });
+    const C_PURPLE = (): Col => (isLightRef.current ? { r: 218, g: 0, b: 12 } : { r: 160, g: 140, b: 255 });
+    /* Boost stroke opacity in light mode so thin orbit/connector
+       lines stay visible against a white background. */
+    const la = (a: number) => (isLightRef.current ? Math.min(1, a * 2.6) : a);
 
     let animId: number;
     let t = 0;
@@ -109,7 +135,7 @@ export default function SolarSystemCanvas() {
       const tech1 = SOLAR_TECHS.find((tt) => tt.ring === r1 && tt.slot === s1);
       const tech2 = SOLAR_TECHS.find((tt) => tt.ring === r2 && tt.slot === s2);
       if (!tech1 || !tech2) return;
-      const col = tech1.cat === "fe" ? C_GREEN : C_PURPLE;
+      const col = tech1.cat === "fe" ? C_GREEN() : C_PURPLE();
       flares.push({ fromRing: r1, fromSlot: s1, toRing: r2, toSlot: s2, life: 0, maxLife: 150, col });
     };
 
@@ -143,8 +169,8 @@ export default function SolarSystemCanvas() {
       ctx.quadraticCurveTo(cpx, cpy, x2, y2);
       const grad = ctx.createLinearGradient(x1, y1, x2, y2);
       grad.addColorStop(0, `rgba(${col.r},${col.g},${col.b},0)`);
-      grad.addColorStop(0.5, `rgba(${col.r},${col.g},${col.b},${alpha})`);
-      grad.addColorStop(1, `rgba(255,255,255,${alpha * 0.5})`);
+      grad.addColorStop(0.5, `rgba(${col.r},${col.g},${col.b},${la(alpha)})`);
+      grad.addColorStop(1, `rgba(${hiC()},${la(alpha * 0.5)})`);
       ctx.strokeStyle = grad;
       ctx.lineWidth = 1.5;
       ctx.stroke();
@@ -155,7 +181,7 @@ export default function SolarSystemCanvas() {
       const hx = (1 - headT) * (1 - headT) * x1 + 2 * (1 - headT) * headT * cpx + headT * headT * x2;
       const hy = (1 - headT) * (1 - headT) * y1 + 2 * (1 - headT) * headT * cpy + headT * headT * y2;
       const bloom = ctx.createRadialGradient(hx, hy, 0, hx, hy, 10);
-      bloom.addColorStop(0, `rgba(255,255,255,${alpha})`);
+      bloom.addColorStop(0, `rgba(${hiC()},${alpha})`);
       bloom.addColorStop(0.4, `rgba(${col.r},${col.g},${col.b},${alpha * 0.5})`);
       bloom.addColorStop(1, `rgba(${col.r},${col.g},${col.b},0)`);
       ctx.beginPath();
@@ -181,7 +207,7 @@ export default function SolarSystemCanvas() {
         ctx.beginPath();
         ctx.ellipse(0, 0, cfg.rx, cfg.ry, 0, 0, Math.PI * 2);
         ctx.setLineDash([3, ring === 0 ? 11 : ring === 1 ? 9 : 7]);
-        ctx.strokeStyle = `rgba(${ring === 0 ? "162,231,115" : ring === 1 ? "140,130,220" : "80,200,200"},${0.09 - ring * 0.015})`;
+        ctx.strokeStyle = `rgba(${ring === 0 ? greenStr() : ring === 1 ? purpleStr() : "80,200,200"},${la(0.09 - ring * 0.015)})`;
         ctx.lineWidth = 0.5;
         ctx.stroke();
         ctx.restore();
@@ -221,12 +247,12 @@ export default function SolarSystemCanvas() {
           ctx.beginPath();
           ctx.moveTo(c.trail[i - 1].x, c.trail[i - 1].y);
           ctx.lineTo(c.trail[i].x, c.trail[i].y);
-          ctx.strokeStyle = `rgba(200,220,255,${ta})`;
+          ctx.strokeStyle = `rgba(200,220,255,${la(ta)})`;
           ctx.lineWidth = 1.5 * (i / c.trail.length);
           ctx.stroke();
         }
         const hg = ctx.createRadialGradient(ccx, ccy, 0, ccx, ccy, 5);
-        hg.addColorStop(0, "rgba(255,255,255,0.9)");
+        hg.addColorStop(0, `rgba(${hiC()},0.9)`);
         hg.addColorStop(1, "rgba(150,200,255,0)");
         ctx.beginPath();
         ctx.arc(ccx, ccy, 5, 0, Math.PI * 2);
@@ -248,7 +274,7 @@ export default function SolarSystemCanvas() {
       // Planet nodes
       for (const tech of SOLAR_TECHS) {
         const cfg = RING_CFG[tech.ring];
-        const col: Col = tech.cat === "fe" ? C_GREEN : C_PURPLE;
+        const col: Col = tech.cat === "fe" ? C_GREEN() : C_PURPLE();
         const pos = getPos(tech.ring, tech.slot, t);
         const glow = 0.5 + 0.5 * Math.sin(t * (0.018 + tech.slot * 0.003) + tech.slot);
 
@@ -270,7 +296,7 @@ export default function SolarSystemCanvas() {
           ctx.rotate(0.4);
           ctx.beginPath();
           ctx.ellipse(0, 0, moonR, moonR * 0.38, 0, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(${col.r},${col.g},${col.b},${0.18 * glow})`;
+          ctx.strokeStyle = `rgba(${col.r},${col.g},${col.b},${la(0.18 * glow)})`;
           ctx.lineWidth = 0.7;
           ctx.setLineDash([2, 4]);
           ctx.stroke();
@@ -286,12 +312,12 @@ export default function SolarSystemCanvas() {
 
         ctx.beginPath();
         ctx.arc(pos.x, pos.y, cfg.dotR + 3 + glow * 2.5, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(${col.r},${col.g},${col.b},${0.18 * glow})`;
+        ctx.strokeStyle = `rgba(${col.r},${col.g},${col.b},${la(0.18 * glow)})`;
         ctx.lineWidth = 0.8;
         ctx.stroke();
 
         const pf = ctx.createRadialGradient(pos.x - cfg.dotR * 0.35, pos.y - cfg.dotR * 0.35, 0, pos.x, pos.y, cfg.dotR);
-        pf.addColorStop(0, "rgba(255,255,255,0.95)");
+        pf.addColorStop(0, `rgba(${hiC()},0.95)`);
         pf.addColorStop(0.45, `rgba(${col.r},${col.g},${col.b},0.9)`);
         pf.addColorStop(1, `rgba(${Math.floor(col.r * 0.4)},${Math.floor(col.g * 0.4)},${Math.floor(col.b * 0.4)},0.85)`);
         ctx.beginPath();
@@ -305,13 +331,13 @@ export default function SolarSystemCanvas() {
         ctx.font = `${cfg.fw} ${cfg.fs}px ${displayFont}`;
         ctx.textAlign = outDir > 0 ? "left" : "right";
         ctx.textBaseline = "middle";
-        const la = tech.ring === 0 ? 0.75 + 0.25 * glow : tech.ring === 1 ? 0.5 + 0.2 * glow : 0.32 + 0.15 * glow;
-        ctx.fillStyle = `rgba(${col.r},${col.g},${col.b},${la})`;
+        const labelA = tech.ring === 0 ? 0.75 + 0.25 * glow : tech.ring === 1 ? 0.5 + 0.2 * glow : 0.32 + 0.15 * glow;
+        ctx.fillStyle = `rgba(${col.r},${col.g},${col.b},${labelA})`;
         ctx.fillText(tech.label.toUpperCase(), lx, ly);
         ctx.beginPath();
         ctx.moveTo(pos.x + outDir * (cfg.dotR + 2), pos.y);
         ctx.lineTo(pos.x + outDir * (cfg.dotR + cfg.labelOff - 3), pos.y);
-        ctx.strokeStyle = `rgba(${col.r},${col.g},${col.b},${0.28 * glow})`;
+        ctx.strokeStyle = `rgba(${col.r},${col.g},${col.b},${la(0.28 * glow)})`;
         ctx.lineWidth = 0.6;
         ctx.stroke();
       }
@@ -321,7 +347,7 @@ export default function SolarSystemCanvas() {
         const aR = 72 + i * 22 + pulse * 12;
         const ag = ctx.createRadialGradient(cx, cy, 0, cx, cy, aR);
         const aa = [0.18, 0.1, 0.05, 0.02][i] * (0.7 + 0.3 * pulse);
-        ag.addColorStop(0, `rgba(162,231,115,${aa * 2})`);
+        ag.addColorStop(0, `rgba(${greenStr()},${aa * 2})`);
         ag.addColorStop(0.4, `rgba(80,215,215,${aa})`);
         ag.addColorStop(1, `rgba(80,215,215,0)`);
         ctx.beginPath();
@@ -337,7 +363,7 @@ export default function SolarSystemCanvas() {
       ctx.beginPath();
       ctx.arc(0, 0, 80, 0, Math.PI * 2);
       ctx.setLineDash([6, 12]);
-      ctx.strokeStyle = `rgba(162,231,115,${0.22 + 0.1 * pulse})`;
+      ctx.strokeStyle = `rgba(${greenStr()},${la(0.22 + 0.1 * pulse)})`;
       ctx.lineWidth = 1;
       ctx.stroke();
       ctx.restore();
@@ -348,7 +374,7 @@ export default function SolarSystemCanvas() {
       ctx.beginPath();
       ctx.arc(0, 0, 68, 0, Math.PI * 2);
       ctx.setLineDash([3, 16]);
-      ctx.strokeStyle = `rgba(80,215,215,${0.14 + 0.07 * pulse})`;
+      ctx.strokeStyle = `rgba(80,215,215,${la(0.14 + 0.07 * pulse)})`;
       ctx.lineWidth = 0.8;
       ctx.stroke();
       ctx.restore();
@@ -366,6 +392,7 @@ export default function SolarSystemCanvas() {
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", onResize);
+      window.removeEventListener("themechange", onThemeChange);
     };
   }, []);
 

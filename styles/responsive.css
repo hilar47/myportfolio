@@ -74,6 +74,7 @@ nav.sticky .inner-nav-menu-btn {
   .contact-grid {
     gap: 3rem;
   }
+
 }
 
 /* ============================================================
@@ -89,7 +90,7 @@ nav.sticky .inner-nav-menu-btn {
   .menu-overlay{
     gap: 20px;
     justify-content: flex-start;
-    padding-top: 65px;
+    padding-top: 105px;
     padding-left: 25px;
   }
 

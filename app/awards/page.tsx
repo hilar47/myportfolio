@@ -37,14 +37,14 @@ function AwardCard({ award, index }: { award: typeof AWARDS[0]; index: number })
       onMouseLeave={() => setHovered(false)}
       className="award-card"
       style={{
-        border: `1px solid ${hovered ? award.color + "55" : "rgba(232,228,220,0.1)"}`,
-        background: hovered ? `${award.color}08` : "rgba(10,10,10,0.8)",
+        border: `1px solid ${hovered ? award.color + "55" : "rgba(var(--fg-rgb),0.1)"}`,
+        background: hovered ? `${award.color}08` : "rgba(var(--bg-rgb),0.8)",
       }}
     >
       {/* Year — colour transitions on hover */}
       <div
         className="award-card-year"
-        style={{ color: hovered ? award.color : "rgba(232,228,220,0.07)" }}
+        style={{ color: hovered ? award.color : "rgba(var(--fg-rgb),0.07)" }}
       >
         {award.year}
       </div>
@@ -131,7 +131,7 @@ function AwardsScroller() {
           disabled={!canScrollLeft}
           className="awards-scroll-btn"
           style={{
-            color: canScrollLeft ? "rgba(232,228,220,0.55)" : "rgba(232,228,220,0.15)",
+            color: canScrollLeft ? "rgba(var(--fg-rgb),0.55)" : "rgba(var(--fg-rgb),0.15)",
             cursor: canScrollLeft ? "none" : "default",
           }}
           onMouseEnter={(e) => {
@@ -140,8 +140,8 @@ function AwardsScroller() {
             (e.currentTarget as HTMLElement).style.color = "#a2e773";
           }}
           onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.borderColor = "rgba(232,228,220,0.12)";
-            (e.currentTarget as HTMLElement).style.color = canScrollLeft ? "rgba(232,228,220,0.55)" : "rgba(232,228,220,0.15)";
+            (e.currentTarget as HTMLElement).style.borderColor = "rgba(var(--fg-rgb),0.12)";
+            (e.currentTarget as HTMLElement).style.color = canScrollLeft ? "rgba(var(--fg-rgb),0.55)" : "rgba(var(--fg-rgb),0.15)";
           }}
         >
           <ChevronLeft size={16} />
@@ -161,7 +161,7 @@ function AwardsScroller() {
           disabled={!canScrollRight}
           className="awards-scroll-btn"
           style={{
-            color: canScrollRight ? "rgba(232,228,220,0.55)" : "rgba(232,228,220,0.15)",
+            color: canScrollRight ? "rgba(var(--fg-rgb),0.55)" : "rgba(var(--fg-rgb),0.15)",
             cursor: canScrollRight ? "none" : "default",
           }}
           onMouseEnter={(e) => {
@@ -170,8 +170,8 @@ function AwardsScroller() {
             (e.currentTarget as HTMLElement).style.color = "#a2e773";
           }}
           onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.borderColor = "rgba(232,228,220,0.12)";
-            (e.currentTarget as HTMLElement).style.color = canScrollRight ? "rgba(232,228,220,0.55)" : "rgba(232,228,220,0.15)";
+            (e.currentTarget as HTMLElement).style.borderColor = "rgba(var(--fg-rgb),0.12)";
+            (e.currentTarget as HTMLElement).style.color = canScrollRight ? "rgba(var(--fg-rgb),0.55)" : "rgba(var(--fg-rgb),0.15)";
           }}
         >
           <ChevronRight size={16} />
@@ -237,7 +237,7 @@ function TestimonialsCarousel() {
               className="testimonial-dot"
               style={{
                 width: i === current ? 28 : 6,
-                background: i === current ? "#a2e773" : "rgba(232,228,220,0.2)",
+                background: i === current ? "#a2e773" : "rgba(var(--fg-rgb),0.2)",
               }}
             />
           ))}
@@ -255,8 +255,8 @@ function TestimonialsCarousel() {
                 (e.currentTarget as HTMLElement).style.color = "#a2e773";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = "rgba(232,228,220,0.14)";
-                (e.currentTarget as HTMLElement).style.color = "rgba(232,228,220,0.5)";
+                (e.currentTarget as HTMLElement).style.borderColor = "rgba(var(--fg-rgb),0.14)";
+                (e.currentTarget as HTMLElement).style.color = "rgba(var(--fg-rgb),0.5)";
               }}
             >
               <Icon size={16} />
@@ -272,7 +272,7 @@ export default function AwardsPage() {
   const router = useRouter();
 
   return (
-    <div className="awards-page-root">
+    <div className="awards-page-root inner-page-root">
       {/* <CustomCursor /> */}
       <InnerNav />
 

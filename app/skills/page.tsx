@@ -129,22 +129,60 @@ function TechCloudCanvas({ logos }: { logos: typeof CLOUD_LOGOS }) {
       getComputedStyle(document.documentElement).getPropertyValue("--font-body").trim() ||
       "sans-serif";
 
+    /* Same reasoning as the other canvases: Canvas 2D can't read CSS
+       at all, so the tech cloud needs its own theme-aware accent.
+       Green (162,231,115) on dark, #DA000C (218,0,12) on light —
+       used for connections, glows, rings, and node labels alike.
+       isLightRef updates live off the "themechange" event ThemeToggle
+       fires, so toggling mid-session recolors immediately. */
+    const isLightRef = { current: document.documentElement.getAttribute("data-theme") === "light" };
+    const onThemeChange = () => {
+      isLightRef.current = document.documentElement.getAttribute("data-theme") === "light";
+    };
+    window.addEventListener("themechange", onThemeChange);
+    const accent = () => (isLightRef.current ? "218,0,12" : "162,231,115");
+
     const pad = 14;
 
+    /* ── Stratified anchor placement ──────────────────────────────
+       Pure random placement always leaves some patches empty by luck
+       (birthday-paradox clumping) even though it's uniform on average.
+       Splitting the canvas into a grid sized to the icon count + its
+       aspect ratio, then guaranteeing exactly one icon per cell
+       (order shuffled so it doesn't look like a mechanical grid),
+       fills the canvas evenly with no dead zones. */
+    const N      = logos.length;
+    const aspect = W / H;
+    const cols   = Math.max(1, Math.round(Math.sqrt(N * aspect)));
+    let   rows   = Math.max(1, Math.ceil(N / cols));
+    while (cols * rows < N) rows++;
+
+    const cellW = W / cols;
+    const cellH = H / rows;
+
+    const cellOrder = Array.from({ length: cols * rows }, (_, idx) => idx);
+    for (let i = cellOrder.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [cellOrder[i], cellOrder[j]] = [cellOrder[j], cellOrder[i]];
+    }
+
     /* ── Preload images + record natural dimensions ── */
-    const nodes: FloatingLogo[] = logos.map((logo) => {
+    const nodes: FloatingLogo[] = logos.map((logo, i) => {
       const maxH = logo.size ?? 32;
 
-      /* Scatter the anchor uniformly across the whole rectangle
-         (margin ~= half the icon's footprint so nothing spawns
-         clipped at an edge). This is what actually reaches the
-         corners — orbiting around a shared centre point, no matter
-         how the radius is sampled, can never cover more than an
-         inscribed ellipse. */
+      const cellIdx = cellOrder[i];
+      const col     = cellIdx % cols;
+      const row     = Math.floor(cellIdx / cols);
+
       const marginX = pad + maxH * 0.7;
       const marginY = pad + maxH * 0.7;
-      const anchorX = marginX + Math.random() * Math.max(0, W - marginX * 2);
-      const anchorY = marginY + Math.random() * Math.max(0, H - marginY * 2);
+      const cellMinX = Math.max(marginX, col * cellW);
+      const cellMaxX = Math.min(W - marginX, (col + 1) * cellW);
+      const cellMinY = Math.max(marginY, row * cellH);
+      const cellMaxY = Math.min(H - marginY, (row + 1) * cellH);
+
+      const anchorX = cellMinX + Math.random() * Math.max(0, cellMaxX - cellMinX);
+      const anchorY = cellMinY + Math.random() * Math.max(0, cellMaxY - cellMinY);
 
       /* Small local wobble/orbit radius — motion stays near the
          node's own spot rather than sweeping across the canvas. */
@@ -347,7 +385,7 @@ function TechCloudCanvas({ logos }: { logos: typeof CLOUD_LOGOS }) {
           const dragBoost = (ns[i].dragging || ns[j].dragging) ? 2.2 : 1;
           const col = useAlt
             ? `rgba(120,119,198,${t0 * 0.25 * dragBoost})`
-            : `rgba(162,231,115,${t0 * 0.22 * dragBoost})`;
+            : `rgba(${accent()},${t0 * 0.22 * dragBoost})`;
 
           ctx.beginPath();
           ctx.moveTo(ns[i].x, ns[i].y);
@@ -363,7 +401,7 @@ function TechCloudCanvas({ logos }: { logos: typeof CLOUD_LOGOS }) {
             ctx.arc(mx, my, 1.4, 0, Math.PI * 2);
             ctx.fillStyle = useAlt
               ? `rgba(120,119,198,${t0 * 0.5})`
-              : `rgba(162,231,115,${t0 * 0.55})`;
+              : `rgba(${accent()},${t0 * 0.55})`;
             ctx.fill();
           }
         }
@@ -379,9 +417,9 @@ function TechCloudCanvas({ logos }: { logos: typeof CLOUD_LOGOS }) {
         const glowR = Math.max(w, h) * (node.dragging ? 1.4 : 1.0);
         const glow  = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, glowR);
         const glowA = node.dragging ? 0.22 : 0.10 + pulse * 0.06;
-        glow.addColorStop(0,   `rgba(162,231,115,${glowA})`);
-        glow.addColorStop(0.5, `rgba(162,231,115,0.03)`);
-        glow.addColorStop(1,   `rgba(162,231,115,0)`);
+        glow.addColorStop(0,   `rgba(${accent()},${glowA})`);
+        glow.addColorStop(0.5, `rgba(${accent()},0.03)`);
+        glow.addColorStop(1,   `rgba(${accent()},0)`);
         ctx.beginPath();
         ctx.arc(node.x, node.y, glowR, 0, Math.PI * 2);
         ctx.fillStyle = glow;
@@ -391,7 +429,7 @@ function TechCloudCanvas({ logos }: { logos: typeof CLOUD_LOGOS }) {
         if (node.dragging) {
           ctx.beginPath();
           ctx.arc(node.x, node.y, Math.max(w, h) * 0.72, 0, Math.PI * 2);
-          ctx.strokeStyle = "rgba(162,231,115,0.55)";
+          ctx.strokeStyle = `rgba(${accent()},0.55)`;
           ctx.lineWidth   = 1.2;
           ctx.setLineDash([4, 5]);
           ctx.stroke();
@@ -413,7 +451,7 @@ function TechCloudCanvas({ logos }: { logos: typeof CLOUD_LOGOS }) {
         } else {
           ctx.beginPath();
           ctx.arc(node.x, node.y, node.maxH / 4, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(162,231,115,${pulseAlpha * 0.6})`;
+          ctx.fillStyle = `rgba(${accent()},${pulseAlpha * 0.6})`;
           ctx.fill();
         }
 
@@ -422,11 +460,11 @@ function TechCloudCanvas({ logos }: { logos: typeof CLOUD_LOGOS }) {
           const ring = Math.max(w, h) * 0.62;
           ctx.beginPath();
           ctx.arc(node.x, node.y, ring, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(162,231,115,${(node.hoverScale - 1) * 0.85})`;
+          ctx.strokeStyle = `rgba(${accent()},${(node.hoverScale - 1) * 0.85})`;
           ctx.lineWidth   = 1;
           ctx.stroke();
           ctx.font      = `500 10px ${bodyFont}`;
-          ctx.fillStyle = `rgba(162,231,115,${Math.min(1, (node.hoverScale - 1) * 2)})`;
+          ctx.fillStyle = `rgba(${accent()},${Math.min(1, (node.hoverScale - 1) * 2)})`;
           ctx.textAlign = "center";
           ctx.fillText(node.name, node.x, node.y + ring + 13);
         }
@@ -435,7 +473,7 @@ function TechCloudCanvas({ logos }: { logos: typeof CLOUD_LOGOS }) {
         if (node.dragging) {
           const ring = Math.max(w, h) * 0.72;
           ctx.font      = `600 11px ${bodyFont}`;
-          ctx.fillStyle = "rgba(162,231,115,0.9)";
+          ctx.fillStyle = `rgba(${accent()},0.9)`;
           ctx.textAlign = "center";
           ctx.fillText(node.name, node.x, node.y + ring + 15);
         }
@@ -452,6 +490,7 @@ function TechCloudCanvas({ logos }: { logos: typeof CLOUD_LOGOS }) {
       canvas.removeEventListener("mousedown",  onMouseDown);
       canvas.removeEventListener("mouseup",    onMouseUp);
       canvas.removeEventListener("mouseleave", onMouseLeave);
+      window.removeEventListener("themechange", onThemeChange);
     };
   }, [logos]);
 
@@ -522,8 +561,8 @@ export default function SkillsPage() {
                   onClick={() => setActiveGroup(i)}
                   className="skills-tab-btn"
                   style={{
-                    border: `1px solid ${activeGroup === i ? "#a2e773" : "rgba(232,228,220,0.4)"}`,
-                    color:  activeGroup === i ? "#a2e773" : undefined,
+                    border: `1px solid ${activeGroup === i ? "var(--primary)" : "rgba(var(--fg-rgb),0.4)"}`,
+                    color:  activeGroup === i ? "var(--primary)" : undefined,
                   }}
                 >
                   {g.category}

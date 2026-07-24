@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { NAV_ITEMS, type NavItem } from "@/lib/constants";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 const PAGE_ROUTES: Record<NavItem, string> = {
   Work: "/projects",
@@ -49,7 +50,9 @@ export default function InnerNav() {
     };
   }, [mobileMenuOpen]);
 
-  const activeItem = ACTIVE_LABEL[pathname] ?? null;
+  const normalizedPathname =
+    pathname.length > 1 ? pathname.replace(/\/$/, "") : pathname;
+  const activeItem = ACTIVE_LABEL[normalizedPathname] ?? null;
 
   const goTo = (path: string) => {
     setMobileMenuOpen(false);
@@ -61,15 +64,18 @@ export default function InnerNav() {
       <nav
         className="sticky top-0 z-40 flex items-center justify-between px-8 pt-7 pb-5"
       >
-        {/* Left: back to home */}
-        <button
-          onClick={() => goTo("/")}
-        >
-          <span>←</span>
-          <span>
-            Home
-          </span>
-        </button>
+        {/* Left: theme toggle + back to home */}
+        <div className="flex items-center gap-4">
+          <ThemeToggle />
+          <button
+            onClick={() => goTo("/")}
+          >
+            <span>←</span>
+            <span>
+              Home
+            </span>
+          </button>
+        </div>
 
         {/* Right: nav items (desktop) + hamburger toggle (mobile) */}
         <div className="flex items-center gap-6">
@@ -81,8 +87,8 @@ export default function InnerNav() {
                   key={item}
                   onClick={() => goTo(PAGE_ROUTES[item])}
                   style={{
-                    color: active ? "#a2e773" : "",
-                    borderBottom: active ? "1px solid #a2e773" : "",
+                    color: active ? "var(--accent)" : "",
+                    borderBottom: active ? "1px solid var(--accent)" : "",
                   }}
                 >
                   {item}

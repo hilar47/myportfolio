@@ -240,6 +240,28 @@ nav.sticky button:hover span{
   color: rgb(162, 231, 115);
 }
 
+/* ─── Theme Toggle ──────────────────────────────────────────────────── */
+
+.theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  border: 1px solid rgba(232, 228, 220, 0.8)!important;
+  background: rgba(232, 228, 220, 0.04);
+  color: rgba(232, 228, 220, 0.7);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
+  flex-shrink: 0;
+}
+.theme-toggle-btn:hover {
+  color: #a2e773;
+  border-color: rgba(162, 231, 115, 0.4);
+  transform: translateY(-1px);
+}
+
 
 /* ─── Hero Name ─────────────────────────────────────────────────────── */
 

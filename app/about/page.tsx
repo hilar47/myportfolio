@@ -114,13 +114,13 @@ function OrbTimeline({
               {/* Label colour is active-state driven, kept inline */}
               <span
                 className="orb-timeline-btn-label"
-                style={{ color: isActive ? "#a2e773" : "rgba(232,228,220,0.28)" }}
+                style={{ color: isActive ? "var(--primary)" : "rgba(var(--fg-rgb),1)" }}
               >
                 {section.label}
               </span>
               <span
                 className="orb-timeline-btn-caption"
-                style={{ color: isActive ? "rgba(162,231,115,0.45)" : "rgba(232,228,220,0.13)" }}
+                style={{ color: isActive ? "var(--primary)" : "rgba(var(--fg-rgb),0.8)" }}
               >
                 {section.caption}
               </span>
@@ -225,7 +225,7 @@ export default function AboutPage() {
   };
 
   return (
-    <div className="about-page-root">
+    <div className="about-page-root inner-page-root">
       {/* <CustomCursor /> */}
       <InnerNav />
 
@@ -321,14 +321,6 @@ export default function AboutPage() {
                     key={item}
                     onClick={() => onNav(item.toLowerCase())}
                     className="about-footer-nav-btn"
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.color = "#a2e773";
-                      (e.currentTarget as HTMLElement).style.borderColor = "rgba(162,231,115,0.3)";
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.color = "rgba(232,228,220,0.4)";
-                      (e.currentTarget as HTMLElement).style.borderColor = "rgba(232,228,220,0.1)";
-                    }}
                   >
                     {item}
                   </button>

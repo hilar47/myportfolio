@@ -46,7 +46,7 @@ export default function ContactPage() {
   );
 
   return (
-    <div className="contact-page-root">
+    <div className="contact-page-root inner-page-root">
       {/* <CustomCursor /> */}
       <InnerNav />
       <svg className="pointer-events-none fixed inset-0 w-full h-full z-50 opacity-[0.28]" style={{ mixBlendMode: "soft-light" }}>
@@ -70,7 +70,7 @@ export default function ContactPage() {
               <p className="contact-p">Email</p>
               <a href="mailto:hilariogoes47@gmail.com" className="contact-detail-link"
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#a2e773"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgb(232,228,220)"; }}>
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgb(var(--fg-rgb))"; }}>
                 hilariogoes47@gmail.com
               </a>
             </div>
@@ -78,12 +78,12 @@ export default function ContactPage() {
               <p className="contact-p">Phone</p>
               <a href="tel:+971556329267" className="contact-detail-link"
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#a2e773"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgb(232,228,220)"; }}>
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgb(var(--fg-rgb))"; }}>
                 +971 556 329 267
               </a>
               <a href="tel:+919823675942" className="contact-detail-link contact-detail-link--muted"
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#a2e773"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(232,228,220,0.45)"; }}>
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(var(--fg-rgb),0.45)"; }}>
                 +91 982 367 5942
               </a>
             </div>
@@ -98,7 +98,7 @@ export default function ContactPage() {
               </a>
               <a href="https://wa.me/971556329267" target="_blank" rel="noopener noreferrer" className="contact-btn-secondary"
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(162,231,115,0.4)"; (e.currentTarget as HTMLElement).style.color = "#a2e773"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(232,228,220,0.15)"; (e.currentTarget as HTMLElement).style.color = "rgba(232,228,220,0.7)"; }}>
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(var(--fg-rgb),0.15)"; (e.currentTarget as HTMLElement).style.color = "rgba(var(--fg-rgb),0.7)"; }}>
                 WhatsApp
               </a>
             </div>
@@ -109,7 +109,7 @@ export default function ContactPage() {
                   <a key={label} href={href} target="_blank" rel="noopener noreferrer" title={label}
                     className="contact-social-link"
                     onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#a2e773"; }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(232,228,220,0.35)"; }}>
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "rgba(var(--fg-rgb),0.35)"; }}>
                     {icon}
                     <span className="contact-social-label">{label}</span>
                   </a>

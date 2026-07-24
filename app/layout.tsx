@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "@/styles/globals.css";
+import Script from "next/script";
+
+
 
 const barlowCondensed = localFont({
   src: [
@@ -47,6 +50,7 @@ const helloParis = localFont({
   display: "swap",
 });
 
+
 export const metadata: Metadata = {
   title: "Hilario Goes — Technical Lead & Frontend Developer",
   description:
@@ -79,7 +83,39 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${barlowCondensed.variable} ${dmSans.variable} ${helloParis.variable}`}
+      suppressHydrationWarning
     >
+      <head>
+        {/* Runs before first paint so the saved theme applies
+            immediately — avoids a flash of the wrong theme. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                var t = localStorage.getItem('theme');
+                if (t === 'light') {
+                  document.documentElement.setAttribute('data-theme', 'light');
+                }
+              } catch (e) {}
+            `,
+          }}
+        />
+        
+        {/* Google tag (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-PVHKV14H47"
+          strategy="afterInteractive"
+        />
+
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-PVHKV14H47');
+          `}
+        </Script>
+      </head>
       <body>{children}</body>
     </html>
   );
